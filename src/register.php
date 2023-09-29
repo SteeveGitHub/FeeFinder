@@ -11,7 +11,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         $adress = htmlspecialchars($_POST['adress']);
         $postal = htmlspecialchars($_POST['postal']);
         $city = htmlspecialchars($_POST['city']);
-        $passwordHash = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
+        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $status = 1;
 
         $checkPasswordQuery = $dbh->prepare("SELECT COUNT(1) FROM visiteur WHERE mdp = ?");
@@ -46,7 +46,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         // Utilise des marqueurs de paramètres dans la requête préparée
         $requete = $dbh->prepare("INSERT INTO visiteur (nom, prenom, numero, login, mdp, adresse, cp, ville, email, status) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $requete->execute([$name, $prenom, $phone, $login, $passwordHash, $adress, $postal, $city, $email, $status]);
-        header('Location: login.html');
+        //header('Location: login.html');
     } catch (PDOException $e) {
         echo 'erreur' . $e;
     }
