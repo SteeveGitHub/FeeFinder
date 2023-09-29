@@ -37,8 +37,9 @@
             if (isset($_SESSION['status'])) {
                 // Statut égal à 2 : Afficher un élément "Admin"
                 if ($_SESSION['status'] === 2) {
-                    echo '<li><a href="/employes">Employés</a></li>';
+                    echo '<li><a href="employes.php">Employés</a></li>';
                 }
+
                 // Statut égal à 3 : Afficher un élément "Comptables"
                 if ($_SESSION['status'] === 3) {
                     echo '<li><a href="/comptables">Comptables</a></li>';
@@ -47,6 +48,7 @@
             ?>
         </ul>
     </nav>
+    <a href="logout.php">Déconnexion</a>
 </body>
 
 </html>
