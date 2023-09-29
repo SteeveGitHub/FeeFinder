@@ -9,12 +9,11 @@ body{
     align-items: center;
     height: 100vh;
     justify-content: center;
-    width: 100%;
 }
 main{
     background-color: #FAF8F5;
-    width: 75%;
-    margin-left: 20rem;
+    width: 125rem;
+    margin-left: 15rem;
 }
 main section{
     background-color: #FFF;
