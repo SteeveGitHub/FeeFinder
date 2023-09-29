@@ -32,7 +32,7 @@
 
     <nav>
         <ul>
-            <li><a href="/">Les fiches</a></li>
+            <li><a href="/">Les fiches:<?php echo $_SESSION['status']; ?> </a></li>
             <?php
             if (isset($_SESSION['status'])) {
                 // Statut égal à 2 : Afficher un élément "Admin"
