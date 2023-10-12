@@ -19,8 +19,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         header('Location: visiteur.php?success=1');
         exit();
     } else {
+        header('Location: login.php?erreur=1');
+        exit();
+    }
+}
         header('Location: login.html?erreur=1');
         exit();
     }
 }
 ?>
+

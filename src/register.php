@@ -45,9 +45,16 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
 
         // Utilise des marqueurs de paramètres dans la requête préparée
         $requete = $dbh->prepare("INSERT INTO visiteur (nom, prenom, numero, login, mdp, adresse, cp, ville, email, status) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $requete->execute([$name, $prenom, $phone, $login, $passwordHash, $adress, $postal, $city, $email, $status]);
-        //header('Location: login.html');
-    } catch (PDOException $e) {
-        echo 'erreur' . $e;
+
+        $requete->execute([$name, $prenom, $phone, $login, $passwordHash,$adress, $postal, $city,$email, $status]);
+
+        // Lie les valeurs aux marqueurs de paramètres
+
+        header('Location: login.html?success=1');
+        exit();
+    
+
+    } catch (PDOException $e){
+        echo 'erreur'.$e;
     }
 }
