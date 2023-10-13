@@ -20,7 +20,7 @@
       <input type="password" name="password" class="password" id="password" placeholder="...mot de passe"/>
      <button type="submit">connexion</button>
     </form>
-  <div><button><a href="../inscription/registerView.html">S'inscrire</a></button></div>
+  <div><button><a href="../inscription/registerView.php">S'inscrire</a></button></div>
     </section>
   </main>
   </body>

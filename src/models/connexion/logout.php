@@ -3,5 +3,5 @@ session_start();
 
 // destroy session to deconnect the user
 session_destroy();
-header("Location: loginView.html");
+header("Location: loginView.php");
 exit();
