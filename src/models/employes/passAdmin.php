@@ -12,7 +12,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         $requete->execute([$id]);
     }
 
-    header('Location: employesCtrl.php');
+    header('Location: employes.php');
     exit();
 } else {
     echo "Paramètres manquants.";
