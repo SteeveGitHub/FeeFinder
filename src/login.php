@@ -23,9 +23,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         exit();
     }
 }
-        header('Location: login.html?erreur=1');
-        exit();
-    }
-}
+
 ?>
 
