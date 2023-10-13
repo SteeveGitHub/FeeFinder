@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     <body>
     <h1>Modifier Frais</h1>
     
-    <form method="post" action="modifier_frais.php">
+    <form method="post" action="modifierFrais.php">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         
         <!-- Les champs du formulaire (date, employé, montant) avec les valeurs actuelles -->

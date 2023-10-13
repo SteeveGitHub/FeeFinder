@@ -3,5 +3,5 @@ session_start();
 
 // destroy session to deconnect the user
 session_destroy();
-header("Location: login.html");
+header("Location: loginView.html");
 exit();

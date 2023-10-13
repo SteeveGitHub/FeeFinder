@@ -19,7 +19,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         $resultPassword = $checkPasswordQuery->fetch();
         if ($resultPassword[0] != 0) {
             echo "<script>alert('Mot de passse déjà utilsé');
-                window.location.href='./register.html';
+                window.location.href='../views/inscription/registerView.html';
             </script>";
         }
 
@@ -29,7 +29,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         $resultLogin = $checkLoginQuery->fetch();
         if ($resultLogin[0] != 0) {
             echo "<script>alert('login déjà utilsé');
-            window.location.href='./register.html';
+            window.location.href='../views/inscription/registerView.html';
         </script>";
         }
 
@@ -39,7 +39,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         $resultEmail = $checkEmailQuery->fetch();
         if ($resultEmail[0] != 0) {
             echo "<script>alert('email déjà utilsé');
-            window.location.href='./register.html';
+            window.location.href='../views/inscription/registerView.html';
         </script>";
         }
 
@@ -50,7 +50,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
 
         // Lie les valeurs aux marqueurs de paramètres
 
-        header('Location: login.html?success=1');
+        header('Location: loginView.html?success=1');
         exit();
     
 

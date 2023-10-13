@@ -29,7 +29,7 @@
         echo "<td>" . $fiche[0] . "</td>";
         echo "<td>" . $fiche[1] . "</td>";
         echo "<td>" . $fiche[2] . "</td>";
-        echo "<td><a href='modifier_frais.php?id=1'>Modifier</a> | <a href='supprimer_frais.php?id=1'>Supprimer</a></td>";
+        echo "<td><a href='../frais/modifierFrais.php?id=1'>Modifier</a> | <a href='../frais/supprimerFrais.php?id=1'>Supprimer</a></td>";
         echo "</tr>";
     }
     ?>
@@ -37,7 +37,7 @@
 
 <h2>Ajouter un Nouveau Frais</h2>
 
-<form method="post" action="ajouter_frais.php">
+<form method="post" action="../frais/ajouterFrais.php">
     <label>Date :</label>
     <input type="date" name="date" required><br>
 
