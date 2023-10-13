@@ -2,7 +2,7 @@
 session_start();
 if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST["phone"]) && isset($_POST['adress']) && isset($_POST['postal']) && isset($_POST['city']) && isset($_POST['password'])) {
     try {
-        include('./database.php');
+        include('../../database.php');
         $login = htmlspecialchars($_POST['login']);
         $name = htmlspecialchars($_POST['name']);
         $prenom = htmlspecialchars($_POST['prenom']);

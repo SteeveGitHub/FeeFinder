@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    include('./database.php');
+    include('../../database.php');
     $email = htmlspecialchars($_POST['email']);
     $password = htmlspecialchars($_POST['password']);
 
@@ -16,15 +16,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $status = $row["status"];
         $_SESSION['user'] = $idUser;
         $_SESSION['status'] = $status;
-        header('Location: visiteur.php?success=1');
-        exit();
+        header('Location: ../../index.php');
+
     } else {
         header('Location: login.php?erreur=1');
-        exit();
+
     }
 
 }
-
 
 ?>
 
