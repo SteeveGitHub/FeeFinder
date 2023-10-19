@@ -2,7 +2,7 @@
 function getTemplate($pageType) {
 
     ob_start();
-    include('../views/accueil/navbarView.php');
+    include(__DIR__ . '/../views/accueil/navbarView.php');
     $navbar = ob_get_clean();
 
     ob_start();
