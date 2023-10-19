@@ -34,15 +34,17 @@
         <ul>
             <li><a href="/">Les fiches:<?php echo $_SESSION['status']; ?> </a></li>
             <?php
+            include '../../utils/getTemplate.php';
             if (isset($_SESSION['status'])) {
                 // Statut égal à 2 : Afficher un élément "Admin"
                 if ($_SESSION['status'] === 2) {
-                    echo '<li><a href="../../views/admin/adminView.php">Employés</a></li>';
+                    echo getTemplate('../admin/adminView.php');
+                    getTemplate('../admin/adminView.php');
                 }
 
                 // Statut égal à 3 : Afficher un élément "Comptables"
                 if ($_SESSION['status'] === 3) {
-                    echo '<li><a href="/src/views/comptable/comptableView.php">Comptables</a></li>';
+                    getTemplate('../comptable/comptableView.php');
                 }
             }
             ?>

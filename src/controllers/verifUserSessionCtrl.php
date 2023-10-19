@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: views/connexion/loginView.php');
 } else {
-    header('Location: models/postLogin/postLoginView.php');
+    header('Location: views/postLogin/postLoginView.php');
 
 
     // si ouverte, rediriger vers la page d'accueil selon la page de l'utilisateur

@@ -28,8 +28,8 @@
             echo "<td>" . $employe["prenom"] . "</td>";
             echo "<td>" . $employe["numero"] . "</td>";
             echo "<td>" . $employe["status"] . "</td>";
-            echo "<td><a href='./passAdmin.php?action=admin&id=" . $employe["id"] . "'>Mettre Admin</a></td>";
-            echo "<td><a href='./passAdmin.php?action=commercial&id=" . $employe["id"] . "'>Mettre Commercial</a></td>";
+            echo "<td><a href='../../models/admins/passAdmin.php?action=admin&id=" . $employe["id"] . "'>Mettre Admin</a></td>";
+            echo "<td><a href='../../models/admins/passAdmin.php?action=commercial&id=" . $employe["id"] . "'>Mettre Commercial</a></td>";
             echo "</tr>";
         }
 
