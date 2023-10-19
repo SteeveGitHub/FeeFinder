@@ -46,6 +46,9 @@
                 if ($_SESSION['status'] === 3) {
                     getTemplate('../comptable/comptableView.php');
                 }
+                else {
+                    echo getTemplate('../accueil/accueilView.php'); 
+                }
             }
             ?>
         </ul>
