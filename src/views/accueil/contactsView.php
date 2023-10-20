@@ -9,7 +9,6 @@
     <script src="https://kit.fontawesome.com/384fab6fc8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<?php include('./navbarView.php');?>
     <main>
         <section class="contacts-container" id="contacts">
             <h1>CONTACT</h1>

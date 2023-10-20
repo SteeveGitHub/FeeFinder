@@ -35,9 +35,6 @@
 
         ?>
     </table>
-    <?php
-    include ('../connexion/logoutView.php');
-    ?>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/384fab6fc8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<?php include('./navbarView.php');?>
+
     <main>
         <section class="insights-container" id="insights">
             <h1>TERMS</h1>

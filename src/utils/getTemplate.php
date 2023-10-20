@@ -2,7 +2,7 @@
 function getTemplate($pageType) {
 
     ob_start();
-    include(__DIR__ . '/../views/accueil/navbarView.php');
+    include(__DIR__ . '/../views/navbar/navbarView.php');
     $navbar = ob_get_clean();
 
     ob_start();
@@ -18,7 +18,7 @@ function getTemplate($pageType) {
     <html>
     <body>
         $navbar
-        <main class="content">
+        <main class="container">
             $content
         </main>
         $logout

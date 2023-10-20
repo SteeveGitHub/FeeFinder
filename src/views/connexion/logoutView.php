@@ -11,7 +11,7 @@
 </head>
 <body>
 <form action="../../models/connexion/logout.php">
-    <button type="submit">DECONNEXION</button>
+    <button class="button" type="submit">DECONNEXION</button>
 </form>
 </body>
 </html>
