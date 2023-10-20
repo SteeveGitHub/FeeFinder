@@ -1,5 +1,6 @@
 <?php
-include('./database.php');
+include('../../database.php');
+
 if (isset($_GET['action']) && isset($_GET['id'])) {
     $action = $_GET['action'];
     $id = $_GET['id'];
@@ -12,8 +13,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         $requete->execute([$id]);
     }
 
-    header('Location: employes.php');
-    exit();
+    header('Location: ../../views/admin/adminView.php');
 } else {
     echo "Paramètres manquants.";
 }
