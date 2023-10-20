@@ -11,7 +11,7 @@
 <body>
     <main>
         <section class="reports-container" id="reports">
-            <h1>PRIVACY</h1>
+            <h1>REPORTS</h1>
             <h1>FeeFinder ©</h1>
             <p>FeeFinder © is a simple tool to calculate the fees for your PayPal transactions.</p>
             <p>It is currently in development and will be released soon.</p>
