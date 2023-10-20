@@ -46,6 +46,7 @@
                 if ($_SESSION['status'] === 3) {
                     getTemplate('../comptable/comptableView.php');
                 }
+                // Statut égal à 1 : Afficher un élément "Visiteurs"
                 else {
                     echo getTemplate('../accueil/accueilView.php'); 
                 }
