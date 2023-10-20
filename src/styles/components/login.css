@@ -57,6 +57,8 @@
         width: 40rem;
     }
     .login-container div .button{
-     margin-bottom: 2rem;
+     margin-bottom: 1.5rem;
+        width: 8rem;
+        font-size: 1.5rem;
     }
 }
