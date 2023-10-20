@@ -23,26 +23,13 @@
 
         <?php
         // Inclure votre fichier de connexion à la base de données
-        include('./database.php');
+        include('../../database.php');
 
         // Requête SQL pour récupérer les données des employés
         $requete = $dbh->prepare("SELECT id, nom, prenom, numero, status FROM visiteur"); // Assurez-vous d'ajuster la condition WHERE en fonction de vos besoins
         $requete->execute();
-
-        // Parcourir les résultats et les afficher dans le tableau
-        while ($row = $requete->fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr>";
-            echo "<td>" . $row['id'] . "</td>";
-            echo "<td>" . $row['nom'] . "</td>";
-            echo "<td>" . $row['prenom'] . "</td>";
-            echo "<td>" . $row['numero'] . "</td>";
-            echo "<td>" . $row['status'] . "</td>";
-            echo "<td><a href='./passAdmin.php?action=admin&id=" . $row['id'] . "'>Mettre Admin</a></td>";
-            echo "<td><a href='./passAdmin.php?action=commercial&id=" . $row['id'] . "'>Mettre Commercial</a></td>";
-            echo "</tr>";
-        }
-
-        // Fermer la requête et la connexion à la base de données
+        $row = $requete->fetchAll(PDO::FETCH_ASSOC);
+            // Fermer la requête et la connexion à la base de données
         $requete->closeCursor();
         ?>
 

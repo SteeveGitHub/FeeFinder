@@ -2,7 +2,7 @@
 session_start();
 if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST["phone"]) && isset($_POST['adress']) && isset($_POST['postal']) && isset($_POST['city']) && isset($_POST['password'])) {
     try {
-        include('./database.php');
+        include('../../database.php');
         $login = htmlspecialchars($_POST['login']);
         $name = htmlspecialchars($_POST['name']);
         $prenom = htmlspecialchars($_POST['prenom']);
@@ -19,7 +19,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         $resultPassword = $checkPasswordQuery->fetch();
         if ($resultPassword[0] != 0) {
             echo "<script>alert('Mot de passse déjà utilsé');
-                window.location.href='../../views/inscription/registerView.html';
+                window.location.href='../../views/inscription/registerView.php';
             </script>";
         }
 
@@ -29,7 +29,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         $resultLogin = $checkLoginQuery->fetch();
         if ($resultLogin[0] != 0) {
             echo "<script>alert('login déjà utilsé');
-            window.location.href='../../views/inscription/registerView.html';
+            window.location.href='../../views/inscription/registerView.php';
         </script>";
         }
 
@@ -39,22 +39,20 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         $resultEmail = $checkEmailQuery->fetch();
         if ($resultEmail[0] != 0) {
             echo "<script>alert('email déjà utilsé');
-            window.location.href='../../views/inscription/registerView.html';
+            window.location.href='../../views/inscription/registerView.php';
         </script>";
         }
 
         // Utilise des marqueurs de paramètres dans la requête préparée
         $requete = $dbh->prepare("INSERT INTO visiteur (nom, prenom, numero, login, mdp, adresse, cp, ville, email, status) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        $requete->execute([$name, $prenom, $phone, $login, $passwordHash,$adress, $postal, $city,$email, $status]);
+        $requete->execute([$name, $prenom, $phone, $login, $passwordHash, $adress, $postal, $city, $email, $status]);
 
         // Lie les valeurs aux marqueurs de paramètres
 
-        header('Location: loginView.html?success=1');
+        header('Location: ../../views/connexion/loginView.php?success=1');
         exit();
-    
-
-    } catch (PDOException $e){
-        echo 'erreur'.$e;
+    } catch (PDOException $e) {
+        echo 'erreur' . $e;
     }
 }
