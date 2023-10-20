@@ -1,12 +1,6 @@
 <?php
  include('./database.php');
 
-$connexion = mysqli_connect($serveur, $utilisateur, $motDePasse, $nomBaseDeDonnees);
-
-if (!$connexion) {
-    die("Échec de la connexion à la base de données : " . mysqli_connect_error());
-}
-
 // Étape 2 : Vérification de la réception des données du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Assurez-vous que les données du formulaire sont bien présentes et valides

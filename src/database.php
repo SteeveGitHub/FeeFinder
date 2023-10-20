@@ -4,3 +4,4 @@ try {
 } catch (PDOException $e) {
     die("erreur :" . $e);
 }
+
