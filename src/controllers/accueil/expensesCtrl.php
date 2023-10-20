@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include(__DIR__ . '../../../utils/getTemplate.php');
 
