@@ -1,5 +1,5 @@
 <?php
-    include_once '../../utils/getTemplate.php';
+    include '../../utils/getTemplate.php';
 session_start();
     if (isset($_SESSION['status'])) {
 if($_SESSION['status'] === 1){
