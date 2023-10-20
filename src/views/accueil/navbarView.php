@@ -14,11 +14,11 @@
         <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="">
     </a>
     <ul class="nav-links">
-        <li><a href="#home"><i class="fa-solid fa-house-user"></i>Home</a></li>
-        <li><a href="#expenses"><i class="fa-solid fa-address-card"></i>About</a></li>
-        <li><a href="#reports"><i class="fa-solid fa-lock"></i>Privacy</a></li>
-        <li><a href="#insights"><i class="fa-solid fa-sheet-plastic"></i>Terms</a></li>
-        <li><a href="#contact"><i class="fa-solid fa-address-book"></i>Contact</a></li>
+        <li><a href="./homeView.php"><i class="fa-solid fa-house-user"></i>Home</a></li>
+        <li><a href="./expensesView.php"><i class="fa-solid fa-address-card"></i>Expenses</a></li>
+        <li><a href="./reportsView.php"><i class="fa-solid fa-lock"></i>Reports</a></li>
+        <li><a href="./insightsView.php"><i class="fa-solid fa-sheet-plastic"></i>Insights</a></li>
+        <li><a href="./contactsView.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
         <div class="active"></div>
     </ul>
 </nav>
