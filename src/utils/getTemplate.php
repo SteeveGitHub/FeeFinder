@@ -13,19 +13,6 @@ function getTemplate($pageType) {
     include (__DIR__ . '/../views/connexion/logoutView.php');
     $logout = ob_get_clean();
 
-    $template = <<<HTML
-    <!DOCTYPE html>
-    <html>
-    <body>
-        $navbar
-        <main class="container">
-            $content
-        </main>
-        $logout
-    </body>
-    </html>
-HTML;
-
-    return $template;
+    return compact('navbar', 'content', 'logout');
 }
 ?>
