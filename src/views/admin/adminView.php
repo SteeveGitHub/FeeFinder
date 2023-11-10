@@ -1,4 +1,4 @@
-
+    <link rel="stylesheet" href="../../styles/index.css">
     <section class="employees">
     <h1>Liste des Employés</h1>
     <table>

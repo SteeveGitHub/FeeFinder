@@ -1,12 +1,18 @@
 
 .logo{
-    display: block;
-    margin-bottom: 130px;
+    display: none;
 }
 
-.logo img{
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    display: block;
+img.logo-img{
+    width: 15rem;
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .logo{
+        display: block;
+    }
+    img.logo-img {
+        width: 15rem;
+    }
 }

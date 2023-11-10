@@ -11,7 +11,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+
     justify-content: center;
     background-color: #016556;
 }
@@ -21,7 +21,7 @@ main{
     */
     width: 125rem;
     
-    margin-left: 6rem;
+    margin-left: 15rem;
     
 }
 main section{

@@ -19,26 +19,3 @@ if ($userStatus === 1) {
 
 // Appel de la fonction getTemplate avec le type de page
 $templateData = getTemplate($pageType);
-
-// Afficher la page complète
-echo <<<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeeFinder ©</title>
-    <link href="../styles/index.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/384fab6fc8.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    {$templateData['navbar']}
-    <main class="container">
-        {$templateData['content']}
-    </main>
-    {$templateData['logout']}
-</body>
-</html>
-HTML;
-?>

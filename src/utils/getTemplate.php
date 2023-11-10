@@ -27,10 +27,11 @@ function getTemplate($pageType) {
     $navbar
     <main class="container">
         $content
-    </main>
     $logout
+    </main>
 </body>
 </html>
 HTML;
+    return null;
 }
 ?>
