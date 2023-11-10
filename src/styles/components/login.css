@@ -8,6 +8,11 @@
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     width: 90%;
 }
+.login-container div button a{
+    text-decoration: none;
+    text-underline: none;
+    color: #FFF;
+}
 .main-login{
     display: flex;
     flex-direction: column;
@@ -17,10 +22,10 @@
     height: 100%;
 }
 .login-container h3{
-    font-size: 2rem;
+    font-size: 3rem;
     margin-bottom: 2rem;
-    color: #03D47C;
-    width: 100%;
+    color: #016556;
+    width: 80%;
     text-align: center;
 }
 .login-container form{
@@ -36,8 +41,24 @@
     margin-bottom: 2rem;
     width: 70%;
 }
+.login-container form .button{
+    height: 3rem;
+    margin-top: 2rem;
+}
 .login-container form label{
     font-weight: 700;
     font-size: 1.5rem;
     color: #FFF;
+    text-decoration: underline #fff ;
+}
+
+@media screen and (min-width: 1000px){
+    .login-container{
+        width: 40rem;
+    }
+    .login-container div .button{
+     margin-bottom: 1.5rem;
+        width: 8rem;
+        font-size: 1.5rem;
+    }
 }

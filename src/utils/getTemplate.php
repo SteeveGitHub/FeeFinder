@@ -2,24 +2,26 @@
 function getTemplate($pageType) {
 
     ob_start();
-    include(__DIR__ . '/../views/accueil/navbarView.php');
+    include(__DIR__ . '/../views/navbar/navbarView.php');
     $navbar = ob_get_clean();
 
     ob_start();
     include($pageType);
     $content = ob_get_clean();
 
+    ob_start();
+    include (__DIR__ . '/../views/connexion/logoutView.php');
+    $logout = ob_get_clean();
+
     $template = <<<HTML
     <!DOCTYPE html>
     <html>
-    <head>
-        <title>Votre Titre</title>
-    </head>
     <body>
         $navbar
-        <main class="content">
+        <main class="container">
             $content
         </main>
+        $logout
     </body>
     </html>
 HTML;
