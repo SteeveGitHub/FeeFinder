@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FeeFinder ©</title>
-    <link href="../../styles/index.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/384fab6fc8.js" crossorigin="anonymous"></script>
-</head>
-<body>
+
 <nav class="navbar">
     <a href="#" class="logo">
         <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="">
@@ -22,4 +12,3 @@
         <div class="active"></div>
     </ul>
 </nav>
-</body>

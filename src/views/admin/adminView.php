@@ -1,4 +1,5 @@
 
+    <section class="employees">
     <h1>Liste des Employés</h1>
     <table>
         <tr>
@@ -23,3 +24,5 @@
         }
         ?>
     </table>
+    </section>
+

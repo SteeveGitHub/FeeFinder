@@ -3,6 +3,10 @@
     font-family: 'News Cycle', sans-serif;
 }
 
+main{
+    width: 85%;
+}
+
 body{
     display: flex;
     flex-direction: column;
