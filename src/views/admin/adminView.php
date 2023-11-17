@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../../styles/index.css">
 </head>
 <body>
+    <div></div>
     <section class="employees">
         <?php
         include ('../../models/admins/admin.php');
@@ -39,3 +40,4 @@
     </section>
 </body>
 </html>
+
