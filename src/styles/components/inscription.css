@@ -8,40 +8,54 @@ body {
     background-color: #3498db; /* Couleur de fond */
   }
   
-  .main-login {
+  .main-inscription {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
   }
   
-  .login-container {
+  .inscription-container {
     background-color: #016556; /* Couleur de fond du formulaire */
     padding: 20px;
     border-radius: 2rem;
     box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
     width: 90%;
   }
+
+  .inscription-container form {
+    background-color: #016556;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 20rem;
+    justify-content: space-evenly;
+    border: 1px solid #085239;
+    border-radius: 2rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    width: 70%;
+  }
   
   h3 {
     color: #016556;
-    font-size: 3rem;
-    margin-bottom: 2rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
   }
   
   form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Ajout de l'alignement vertical au centre */
   }
   
   label {
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #FFF;
-    text-decoration: underline #fff;
     margin-bottom: 8px;
+    text-align: center; /* Ajout de l'alignement horizontal au centre */
   }
   
   input {
@@ -50,6 +64,7 @@ body {
     border: 1px solid #085239;
     border-radius: 4px;
     font-size: 14px;
+    text-align: center; /* Ajout de l'alignement horizontal au centre */
   }
   
   .button {
@@ -71,7 +86,7 @@ body {
   }
   
   @media screen and (min-width: 1000px) {
-    .login-container {
+    .inscription-container {
       width: 40rem;
     }
   
