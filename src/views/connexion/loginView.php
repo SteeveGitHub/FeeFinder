@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
-  <main class="main-login">
+  <div class="main-login">
     <section class="login-container">
     <h3>Bienvenue sur FeeFinder !</h3>
     <form action="../../models/connexion/login.php" method="post">
@@ -18,10 +18,10 @@
         <input type="email" name="email" class="email" id="email" placeholder="...email"/>
       <label for="password">Mot de passe :</label>
       <input type="password" name="password" class="password" id="password" placeholder="...mot de passe"/>
-     <button type="submit" CLASS="button">connexion</button>
+     <button type="submit" class="button">connexion</button>
     </form>
   <div><button class="button"><a href="../inscription/registerView.php">S'inscrire</a></button></div>
     </section>
-  </main>
+  </div>
   </body>
 </html>
