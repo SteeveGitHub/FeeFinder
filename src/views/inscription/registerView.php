@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../styles/index.css" rel="stylesheet">
     <title>Page d'inscription</title>
 </head>
 <body>
+    <main>
     <form action="../../models/inscription/register.php" method="post">
         <label>nom d'utilisateur</label><br />
         <input type="text" name="login" class="login" placeholder="entrez votre id"><br />
@@ -27,5 +29,6 @@
         <input type="text" name="city" class="city" placeholder="votre ville" required><br/>
        <button type="submit">s'inscrire</button>
       </form>
+    </main>
 </body>
 </html>
