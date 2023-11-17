@@ -19,6 +19,7 @@
                 <li><a href="#privacy"><i class="fa-solid fa-lock"></i>Privacy</a></li>
                 <li><a href="#terms"><i class="fa-solid fa-sheet-plastic"></i>Terms</a></li>
                 <li><a href="#contact"><i class="fa-solid fa-address-book"></i>Contact</a></li>
+                <li><a href="../frais/ajouterFraisView.php"><i class="fa-solid fa-address-book"></i>Fiches</a></li>
                 <div class="active"></div>
             </ul>
         </nav>
