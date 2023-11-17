@@ -1,0 +1,84 @@
+/* Ajoutez ces styles à votre fichier CSS */
+
+body {
+    font-family: 'News Cycle', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #3498db; /* Couleur de fond */
+  }
+  
+  .main-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-container {
+    background-color: #016556; /* Couleur de fond du formulaire */
+    padding: 20px;
+    border-radius: 2rem;
+    box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
+    width: 90%;
+  }
+  
+  h3 {
+    color: #016556;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  label {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #FFF;
+    text-decoration: underline #fff;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #085239;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .button {
+    background-color: #016556; /* Couleur du bouton */
+    color: #FFF;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button:hover {
+    background-color: #085239; /* Couleur du bouton au survol */
+  }
+  
+  .button:focus {
+    outline: none;
+  }
+  
+  @media screen and (min-width: 1000px) {
+    .login-container {
+      width: 40rem;
+    }
+  
+    .button {
+      margin-bottom: 1.5rem;
+      width: 8rem;
+      font-size: 1.5rem;
+    }
+  }
+  
