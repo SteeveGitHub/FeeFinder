@@ -21,6 +21,7 @@
             </tr>
 
             <?php
+            include('../../models/admins/admin.php');
             foreach ($row as $employe) {
                 echo "<tr>";
                 echo "<td>" . $employe["id"] . "</td>";
@@ -37,4 +38,5 @@
     </section>
 </body>
 </html>
+
 
