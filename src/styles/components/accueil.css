@@ -1,0 +1,10 @@
+.accueilView{
+    display: flex;
+    flex-direction: column ;
+    width: 95%;
+    margin: 5rem auto 0 auto;
+}
+
+#burger-icon{
+    width: 4rem;
+}

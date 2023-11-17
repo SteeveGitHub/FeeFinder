@@ -13,7 +13,7 @@
        <?php
        include '../navbar/navbarView.php';
          ?>
-    <main>
+    <main class="accueilView">
         <section class="home-container" id="home">
             <h1>HOME</h1>
             <h2>FeeFinder ©</h2>
@@ -53,9 +53,9 @@
             <p>It is currently in development and will be released soon.</p>
             <p>For more information, please visit <a href=">https://feefinder.app">https://feefinder.app</a>.</p>
         </section>
-    </main>
         <footer>
             <p>FeeFinder © 2021</p>
         </footer>
+    </main>
 </body>
 </html>

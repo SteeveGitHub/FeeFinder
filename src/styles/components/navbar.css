@@ -1,7 +1,19 @@
-.burger-containerk{
-    position: relative;
+
+.burger-container{
+    position: fixed;
     top: 0;
     left: 0;
+    cursor: pointer;
+    height: 5rem;
+}
+
+.burger-container .navbar-open{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background-color: #fff;
 }
 
 .menu-toggle {
@@ -9,13 +21,37 @@
     cursor: pointer;
 }
 
-.navbar {
-   display: none;
+.navbar-closed {
+opacity: 0;
+visibility: none;
+position: absolute;
+top: 0;
+left: 0;
+width: 0;
+height: 0;
 }
-.navbar--active{
+.navbar-closed .nav-links{
+    opacity: 0;
+    visibility: none;
+width: 0;
+height: 0;
+transition: 0.5s ease-in;
+}
+.navbar-open .nav-links{
     display: flex;
     flex-direction: column;
     width: 10rem;
+    opacity: 1;
+    width: 10rem;
+    height: 100%;
+    list-style: none;
+    position: relative;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: 0.5s ease-in;
+    
 }
 
 
@@ -24,15 +60,7 @@
 }
 
 .nav-links {
-    list-style: none;
-    position: relative;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    transition: height 0.5s ease-in-out;
+   
 }
 
 .nav-links.show {
@@ -48,23 +76,6 @@
 .nav-links li:hover a {
     color: #000;
     transition: 0.3s ease;
-}
-
-.bar {
-    height: 1px;
-    width: 100%;
-    background-color: #01C372; /* Changement de couleur */
-    z-index: 20;
-    transition: transform 0.3s ease-in-out;
-}
-
-.bars {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 21;
-    height: 4rem;
-    width: 2rem;
 }
 
 /* Afficher le menu complet sur les écrans larges */
@@ -215,12 +226,6 @@
     outline-offset: 5px;
 }
 
-body {
-    margin:0;
-    min-height:100vh;
-    display:grid;
-    place-content:center;
-}
 .logo-img{
     width: 5rem;
 }
@@ -241,4 +246,21 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+
+/* Your existing CSS styles */
+
+#menuBars {
+    display: none;
+}
+
+#menuBars img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.menu:checked + #menuBars img {
+    transform: rotate(90deg);
 }
