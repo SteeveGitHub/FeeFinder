@@ -1,17 +1,4 @@
 
-    <h1>Liste des Employés</h1>
-
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Numéro</th>
-            <th>Status</th>
-            <th>Admin</th>
-            <th>Commercial</th>
-        </tr>
-
         <?php
         // Inclure votre fichier de connexion à la base de données
         include('../../database.php');
@@ -23,5 +10,3 @@
             // Fermer la requête et la connexion à la base de données
         $requete->closeCursor();
         ?>
-
-    </table>
