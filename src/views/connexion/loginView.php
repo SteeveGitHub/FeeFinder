@@ -18,7 +18,7 @@
         <input type="email" name="email" class="email" id="email" placeholder="...email"/>
       <label for="password">Mot de passe :</label>
       <input type="password" name="password" class="password" id="password" placeholder="...mot de passe"/>
-     <button type="submit" CLASS="button">connexion</button>
+     <button type="submit" class="button">connexion</button>
     </form>
   <div><button class="button"><a href="../inscription/registerView.php">S'inscrire</a></button></div>
     </section>
