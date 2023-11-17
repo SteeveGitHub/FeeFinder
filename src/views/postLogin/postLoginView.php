@@ -1,15 +1,21 @@
 <?php
 session_start();
-include '../../utils/getTemplate.php';
-    if (isset($_SESSION['status'])) {
-        if ($_SESSION['status'] === 1){
-            echo getTemplate("../accueil/accueilView.php");
-        } else if($_SESSION['status'] === 2){
-            echo getTemplate("../admin/adminView.php");
-        } else if($_SESSION['status'] === 3){
-            echo getTemplate("../comptable/comptableView.php");
-        }
+
+// Obtenez le statut de l'utilisateur depuis la session
+$userStatus = isset($_SESSION['status']) ? $_SESSION['status'] : null;
+
+// Déterminez la page à afficher en fonction du statut de l'utilisateur
+if ($userStatus === 1) {
+    header('Location: ../accueil/accueilView.php');
+} elseif ($userStatus === 2) {
+    header('Location: ../admin/adminView.php');
+} elseif ($userStatus === 3) {
+    header('Location: ../comptable/comptableView.php');
+} else {
+    if (!isset($_SESSION['user'])) {
+        header('Location: views/connexion/loginView.php');
     } else {
-        echo getTemplate('../accueil/accueilView.php');
+        header('Location: views/postLogin/postLoginView.php');
     }
-?>
+}
+
