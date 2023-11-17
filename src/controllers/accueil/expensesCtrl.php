@@ -3,8 +3,8 @@ session_start();
 include(__DIR__ . '../../../utils/getTemplate.php');
 
 if (isset($_SESSION['status'])) {
-    $template = getTemplate(__DIR__ . '../../../views/accueil/expensesView.php');
-    echo $template;
+    getTemplate("../../views/accueil/expensesView.php");
 } else {
     header('Location: ../verifUserSessionCtrl.php');
 }
+?>
