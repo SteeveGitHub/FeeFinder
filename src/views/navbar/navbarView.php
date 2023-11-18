@@ -22,7 +22,7 @@
         <li><a href="../../controllers/accueil/reportCtrl.php"><i class="fa-solid fa-lock"></i>Reports</a></li>
         <li><a href="../../controllers/accueil/insightCtrl.php"><i class="fa-solid fa-sheet-plastic"></i>Insights</a></li>
         <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-euro-sign"></i>Frais</a></li>
-        <li><a href="../../controllers/accueil/contactView.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
+        <li><a href="../../controllers/accueil/contactCtrl.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
         <div class="active"></div>
     </ul>
 </nav>
