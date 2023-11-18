@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/384fab6fc8.js" crossorigin="anonymous"></script>
    
 </head>
-<body>
+<body >
        <?php
        include '../navbar/navbarView.php';
          ?>

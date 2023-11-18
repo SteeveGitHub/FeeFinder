@@ -12,14 +12,16 @@
     <div class="burger-container">
         <img id="burger-icon" src="../../assets/images/hamburger.png" alt="Burger Icon" onclick="toggleBurger()">
 <nav class=`${classname}` >
+    
+    <ul class="nav-links">
     <a href="#" class="logo">
         <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="feefinderlogo">
     </a>
-    <ul class="nav-links">
         <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fa-solid fa-house-user"></i>Home</a></li>
         <li><a href="../../controllers/accueil/expensesCtrl.php"><i class="fa-solid fa-address-card"></i>Expenses</a></li>
         <li><a href="../../controllers/accueil/reportCtrl.php"><i class="fa-solid fa-lock"></i>Reports</a></li>
         <li><a href="../../controllers/accueil/insightCtrl.php"><i class="fa-solid fa-sheet-plastic"></i>Insights</a></li>
+        <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-euro-sign"></i>Frais</a></li>
         <li><a href="../../controllers/accueil/contactView.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
         <div class="active"></div>
     </ul>
