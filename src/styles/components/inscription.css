@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Ajoutez ces styles à votre fichier CSS */
 
 body {
@@ -9,9 +8,6 @@ body {
   }
   
   .main-inscription {
-=======
-.main-inscription {
->>>>>>> fd574387e75e02a0747badb24ba997f12e779732
     display: flex;
     justify-content: center;
     align-items: center;
