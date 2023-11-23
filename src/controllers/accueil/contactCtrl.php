@@ -6,5 +6,5 @@ if (isset($_SESSION['status'])) {
 
 } else {
     header('Location: ../verifUserSessionCtrl.php');
-}
+} 
 ?>
