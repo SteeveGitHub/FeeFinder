@@ -158,20 +158,26 @@ transition: 0.2s ease-in-out;
     #burger-icon{
         display: none;
     }
+    .burger-container .navbar-open{
+        background-color: #01C372;
+    }
 
-    .navbar-closed .nav-links .logo img{
+    .navbar-closed .nav-links .logo img,
+    .navbar-open .nav-links .logo img{
         width: 10rem;
         opacity: 1;
         padding: 1rem 0;
         visibility: visible;
     }
-    .navbar-closed .nav-links .logo{
+    .navbar-closed .nav-links .logo,
+    .navbar-open .nav-links .logo{
         padding: 1rem;
         width: 10rem;
         opacity: 1;
         visibility: visible;
     }
-    .navbar-closed .nav-links .logo:hover{
+    .navbar-closed .nav-links .logo:hover,
+    .navbar-open .nav-links .logo:hover{
         background-color: #fff;
     }
 
@@ -189,7 +195,7 @@ transition: 0.2s ease-in-out;
         visibility: visible;
     }
 
-    .navbar-closed{
+    .navbar-closed, .navbar-open{
         visibility: visible;
         display: flex;
         flex-direction: column;
@@ -216,7 +222,8 @@ transition: 0.2s ease-in-out;
         width: 15rem;
     }
 
-    .navbar-closed .nav-links {
+    .navbar-closed .nav-links,
+    .navbar-open .nav-links {
         margin: 0;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         display: flex;
@@ -231,7 +238,8 @@ transition: 0.2s ease-in-out;
         
     }
 
-    .navbar-closed .nav-links li{
+    .navbar-closed .nav-links li,
+    .navbar-open .nav-links li{
         display: flex;
         justify-content: center;
         align-items: center;
