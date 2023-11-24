@@ -3,75 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../../styles/index.css">
+   
 </head>
-<body>
-<<<<<<< HEAD
-<div class="burger-container">
-<input type="checkbox" onclick="triggerMenu()" role="button" aria-label="Display the menu" class="menu">
-<nav class="navbar-not-opened" id="navbar">
-    <div class="menu-toggle" id="menuToggle">
-        <a href="#" class="logo">
-            <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="">
-        </a>
-    </div>
+<body class="content-and-nav">
+    <div class="burger-container">
+        <img id="burger-icon" src="../../assets/images/hamburger.png" alt="Burger Icon" onclick="toggleBurger()">
+<nav class=`${classname}` >
+    
     <ul class="nav-links">
-        <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fas fa-house-user"></i>Home</a></li>
-        <li><a href="../../controllers/accueil/expensesCtrl.php"><i class="fas fa-address-card"></i>Expenses</a></li>
-        <li><a href="../../controllers/accueil/reportCtrl.php"><i class="fas fa-lock"></i>Reports</a></li>
-        <li><a href="../../controllers/accueil/insightCtrl.php"><i class="fas fa-sheet-plastic"></i>Insights</a></li>
-        <li><a href="../../controllers/accueil/contactCtrl.php"><i class="fas fa-address-book"></i>Contact</a></li>
-        <div class="active"></div>
-    </ul>
-</nav>
-</div>
-</body>
-<script>
-    let navbar = document.getElementById("navbar");
-    let navbarClassname = "navbar-not-opened";
-
-    function triggerMenu() {
-        if (navbar.className === navbarClassname) {
-            navbar.classList.add("navbar-opened");
-            navbar.classList.remove("navbar-not-opened");
-        } else {
-            navbar.classList.add("navbar-not-opened");
-            navbar.classList.remove("navbar-opened");
-        }
-    }
-</script>
-</html>
-=======
-<<<<<<< HEAD
-<nav class="navbar">
     <a href="#" class="logo">
-        <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="">
+        <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="feefinderlogo">
     </a>
-    <ul class="nav-links">
         <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fa-solid fa-house-user"></i>Home</a></li>
         <li><a href="../../controllers/accueil/expensesCtrl.php"><i class="fa-solid fa-address-card"></i>Expenses</a></li>
         <li><a href="../../controllers/accueil/reportCtrl.php"><i class="fa-solid fa-lock"></i>Reports</a></li>
         <li><a href="../../controllers/accueil/insightCtrl.php"><i class="fa-solid fa-sheet-plastic"></i>Insights</a></li>
-        <li><a href="../../controllers/accueil/contactView.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
+        <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-euro-sign"></i>Frais</a></li>
+        <li><a href="../../controllers/accueil/contactCtrl.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
         <div class="active"></div>
     </ul>
 </nav>
-=======
-    <nav class="navbar">
-        <a href="#" class="logo">
-            <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="">
-        </a>
-        <ul class="nav-links">
-            <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fa-solid fa-house-user"></i>Home</a></li>
-            <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-sheet-plastic"></i>Fiche</a></li>
-            <li><a href="../../controllers/accueil/expensesCtrl.php"><i class="fa-solid fa-address-card"></i>Expenses</a></li>
-            <li><a href="../../controllers/accueil/reportCtrl.php"><i class="fa-solid fa-lock"></i>Reports</a></li>
-            <li><a href="../../controllers/accueil/insightCtrl.php"><i class="fa-solid fa-sheet-plastic"></i>Insights</a></li>
-            <li><a href="../../controllers/accueil/contactCtrl.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
-            <div class="active"></div>
-        </ul>
-    </nav>
->>>>>>> refs/remotes/origin/backv2.2
+</div>
+<script>
+    const nav = document.querySelector('nav');
+    nav.className = "navbar-closed";
+    let classname = "";
+        let isOpen = false;
+        function toggleBurger() {
+    if (isOpen) {
+        isOpen = false;
+        classname = "navbar-closed";
+    } else {
+        isOpen = true;
+        classname = "navbar-open";
+    }
+    nav.className = classname;
+}
+    </script>
 </body>
->>>>>>> 66efb8bc3d403e0119d3ee1ef5627efcc8b7bbe6
+</html>

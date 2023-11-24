@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../../styles/index.css" rel="stylesheet">
     <title>Page d'inscription</title>
-    <link href="../../styles/index.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap" rel="stylesheet"> -->
 </head>
 <body>
-    <main class="main-inscription">
+    <div class="main-inscription">
         <section class="inscription-container">
+            <h3>Bienvenue sur FeeFinder !</h3>
             <form action="../../models/inscription/register.php" method="post">
-                <h3>Bienvenue sur FeeFinder !</h3>
                 <label>nom d'utilisateur</label><br />
                 <input type="text" name="login" class="login" placeholder="entrez votre id"><br />
                 <label>nom</label> <br/>
@@ -33,9 +32,9 @@
                 <input type="number" name="postal" class="postal" placeholder="code postal" required> <br/>
                 <label>ville</label><br />
                 <input type="text" name="city" class="city" placeholder="votre ville" required><br/>
-                <button class="button" type="submit">s'inscrire</button>
             </form>
+            <button class="button" type="submit">s'inscrire</button>
         </section>
-    </main>
+    </div>
 </body>
 </html>

@@ -5,7 +5,6 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #3498db; /* Couleur de fond */
   }
   
   .main-inscription {
@@ -13,61 +12,55 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
+}
   
-  .inscription-container {
-    background-color: #016556; /* Couleur de fond du formulaire */
-    padding: 20px;
+.inscription-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* Couleur de fond du formulaire */
+    padding: 40px;
     border-radius: 2rem;
     box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
-    width: 90%;
-  }
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
 
-  .inscription-container form {
+.inscription-container form {
     background-color: #016556;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 20rem;
+    height: 45rem;
     justify-content: space-evenly;
     border: 1px solid #085239;
     border-radius: 2rem;
     padding: 2rem;
     margin-bottom: 2rem;
-    width: 70%;
-  }
+}
   
-  h3 {
-    color: #016556;
+.inscription-container h3 {
+    color: #000000;
     font-size: 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 4rem;
     text-align: center;
-  }
+}
   
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Ajout de l'alignement vertical au centre */
-  }
-  
-  label {
+label {
     font-weight: 700;
     font-size: 1.2rem;
     color: #FFF;
-    margin-bottom: 8px;
     text-align: center; /* Ajout de l'alignement horizontal au centre */
-  }
+}
   
-  input {
-    padding: 8px;
-    margin-bottom: 16px;
+input {
     border: 1px solid #085239;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1.2rem;
     text-align: center; /* Ajout de l'alignement horizontal au centre */
-  }
+}
   
-  .button {
+.inscription-container button {
     background-color: #016556; /* Couleur du bouton */
     color: #FFF;
     padding: 10px;
@@ -75,17 +68,19 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-  }
+    height: 5rem;
+    width: 15rem;
+}
   
-  .button:hover {
+.button:hover {
     background-color: #085239; /* Couleur du bouton au survol */
-  }
+}
   
-  .button:focus {
+.button:focus {
     outline: none;
-  }
+}
   
-  @media screen and (min-width: 1000px) {
+@media screen and (min-width: 1000px) {
     .inscription-container {
       width: 40rem;
     }
@@ -95,5 +90,5 @@ body {
       width: 8rem;
       font-size: 1.5rem;
     }
-  }
+}
   

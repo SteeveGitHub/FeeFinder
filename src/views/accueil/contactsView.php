@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     mail($destinataire, $sujet, $corps_message, $headers);
 
-    header("Location: ../postLogin/postLoginView.php");
+    // header("Location: ../postLogin/postLoginView.php");
 }
 ?>
 
