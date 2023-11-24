@@ -32,8 +32,9 @@
                 <input type="number" name="postal" class="postal" placeholder="code postal" required> <br/>
                 <label>ville</label><br />
                 <input type="text" name="city" class="city" placeholder="votre ville" required><br/>
-            </form>
             <button class="button" type="submit">s'inscrire</button>
+
+            </form>
         </section>
     </div>
 </body>

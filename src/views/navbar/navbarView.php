@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../styles/index.css">
    
 </head>
-<body class="content-and-nav">
+<body>
     <div class="burger-container">
         <img id="burger-icon" src="../../assets/images/hamburger.png" alt="Burger Icon" onclick="toggleBurger()">
 <nav class=`${classname}` >

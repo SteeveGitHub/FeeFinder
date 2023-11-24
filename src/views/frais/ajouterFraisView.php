@@ -64,11 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <?php include "../navbar/navbarView.php" ?>
-    <input type="button" value="Afficher la modal" onclick="toggleModal()">
-
-    <div id="modal" class="modal">
+    <!-- <input type="button" value="Afficher la modal" onclick="toggleModal()"> -->
+    <!-- <div id="modal" class="modal"> -->
         <div class="modal-content">
-            <span class="close" onclick="toggleModal()">&times;</span>
+            <!-- <span class="close" onclick="toggleModal()">&times;</span> -->
 
             <div id="formSelectorContainer">
                 <input type="button" value="Fiche Forfait" onclick="showForfaitForm()">
@@ -134,16 +133,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </form>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 
 
     <script>
         window.open(showForfaitForm())
 
-        function toggleModal() {
-            var modal = document.getElementById('modal');
-            modal.style.display = (modal.style.display === 'none' || modal.style.display === '') ? 'block' : 'none';
-        }
+        // function toggleModal() {
+        //     var modal = document.getElementById('modal');
+        //     modal.style.display = (modal.style.display === 'none' || modal.style.display === '') ? 'block' : 'none';
+        // }
 
         function showForfaitForm() {
             document.getElementById('forfaitFormContainer').style.display = 'block';
