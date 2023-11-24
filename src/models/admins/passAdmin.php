@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else if ($action === 'visiteur') {
             $requete = $dbh->prepare("UPDATE visiteur SET status = 1 WHERE id = ?");
             $requete->execute([$id]);
+        } else if ($action === 'bloqué') {
+            $requete = $dbh->prepare("UPDATE visiteur SET status = 4 WHERE id = ?");
+            $requete->execute([$id]);
         }
 
         echo "Success";

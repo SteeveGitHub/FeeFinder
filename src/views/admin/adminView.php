@@ -35,9 +35,10 @@
 
                 echo "<td>";
                 echo "<select onchange=\"changeRole(this.value, " . $employe["id"] . ")\">";
-                echo "<option value='visiteur' " . ($employe["status"] == 1 ? "selected" : "") . ">Mettre Visiteur</option>";
-                echo "<option value='admin' " . ($employe["status"] == 2 ? "selected" : "") . ">Mettre Admin</option>";
-                echo "<option value='comptable' " . ($employe["status"] == 3 ? "selected" : "") . ">Mettre Comptable</option>";
+                echo "<option value='visiteur' " . ($employe["status"] == 1 ? "selected" : "") . ">Visiteur</option>";
+                echo "<option value='admin' " . ($employe["status"] == 2 ? "selected" : "") . ">Admin</option>";
+                echo "<option value='comptable' " . ($employe["status"] == 3 ? "selected" : "") . ">Comptable</option>";
+                echo "<option value='bloqué' " . ($employe["status"] == 4 ? "selected" : "") . ">Bloqué</option>";
                 echo "</select>";
                 echo "</td>";
 
@@ -78,6 +79,24 @@
         </form>
 
         <script>
+            function changeRole(role, userId) {
+                $.ajax({
+                    url: '../../models/admins/passAdmin.php',
+                    method: 'POST',
+                    data: {
+                        action: role,
+                        id: userId
+                    },
+                    success: function(response) {
+                        alert('Rôle changé avec succès');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        alert('Erreur lors du changement de rôle');
+                    }
+                });
+            }
+
             function updateFrais() {
                 var formData = $("#updateFraisForm").serialize();
 
