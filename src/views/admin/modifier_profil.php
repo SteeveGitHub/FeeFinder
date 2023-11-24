@@ -11,7 +11,7 @@ if (isset($_SESSION['user'])) {
     // Effectuez une requête pour récupérer les informations de l'utilisateur avec l'ID spécifié
     $requete = $dbh->prepare("SELECT * FROM visiteur WHERE id = ?");
     $result = $requete->execute([$userId]);
-    $user = $result->fetch();
+    $user = $requete->fetch();
 
     if ($user) {
         // Traitement du formulaire de modification lorsqu'il est soumis
