@@ -1,10 +1,11 @@
 <?php
 // modifier_profil.php
+session_start();
 
 include('../../database.php');
 
-if (isset($_GET['id'])) {
-    $userId = $_GET['id'];
+if (isset($_SESSION['user'])) {
+    $userId = $_SESSION['user'];
 
     // Effectuez une requête pour récupérer les informations de l'utilisateur avec l'ID spécifié
     $requete = $dbh->prepare("SELECT * FROM visiteur WHERE id = ?");

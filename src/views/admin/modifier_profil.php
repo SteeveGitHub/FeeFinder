@@ -2,14 +2,16 @@
 // modifier_profil.php
 
 include('../../database.php');
+session_start();
 
-if (isset($_GET['id'])) {
-    $userId = $_GET['id'];
+// Vérifier si l'utilisateur est connecté
+if (isset($_SESSION['user'])) {
+    $userId = $_SESSION['user'];
 
     // Effectuez une requête pour récupérer les informations de l'utilisateur avec l'ID spécifié
     $requete = $dbh->prepare("SELECT * FROM visiteur WHERE id = ?");
     $result = $requete->execute([$userId]);
-    $user = $requete->fetch();
+    $user = $result->fetch();
 
     if ($user) {
         // Traitement du formulaire de modification lorsqu'il est soumis
@@ -49,7 +51,7 @@ if (isset($_GET['id'])) {
 
         <body>
             <h1>Modifier le profil</h1>
-            <form action="modifier_profil.php?id=<?= $userId ?>" method="post">
+            <form action="modifier_profil.php" method="post">
                 <label for="name">Nom:</label>
                 <input type="text" name="name" id="name" value="<?= $user['nom'] ?>" required><br>
 
@@ -66,8 +68,7 @@ if (isset($_GET['id'])) {
                 <input type="text" name="adress" id="adress" value="<?= $user['adresse'] ?>" required><br>
 
                 <label for="cp">Code postal:</label>
-<input type="number" name="cp" id="cp" value="<?= $user['cp'] ?>" required><br>
-
+                <input type="number" name="cp" id="cp" value="<?= $user['cp'] ?>" required><br>
 
                 <label for="city">Ville:</label>
                 <input type="text" name="city" id="city" value="<?= $user['ville'] ?>" required><br>
@@ -82,6 +83,6 @@ if (isset($_GET['id'])) {
         echo "Utilisateur non trouvé.";
     }
 } else {
-    echo "ID utilisateur non spécifié.";
+    echo "Utilisateur non connecté.";
 }
 ?>
