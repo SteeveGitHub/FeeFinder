@@ -1,19 +1,27 @@
 <?php
 include('../../database.php');
 
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    $action = $_GET['action'];
-    $id = $_GET['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action']) && isset($_POST['id'])) {
+        $action = $_POST['action'];
+        $id = $_POST['id'];
 
-    if ($action === 'admin') {
-        $requete = $dbh->prepare("UPDATE visiteur SET status = 2 WHERE id = ?");
-        $requete->execute([$id]);
-    } elseif ($action === 'commercial') {
-        $requete = $dbh->prepare("UPDATE visiteur SET status = 3 WHERE id = ?");
-        $requete->execute([$id]);
+        if ($action === 'admin') {
+            $requete = $dbh->prepare("UPDATE visiteur SET status = 2 WHERE id = ?");
+            $requete->execute([$id]);
+        } else if ($action === 'commercial') {
+            $requete = $dbh->prepare("UPDATE visiteur SET status = 3 WHERE id = ?");
+            $requete->execute([$id]);
+        } else if ($action === 'visiteur') {
+            $requete = $dbh->prepare("UPDATE visiteur SET status = 1 WHERE id = ?");
+            $requete->execute([$id]);
+        }
+
+        echo "Success";
+        header('Location: ../../views/admin/adminView.php');
+    } else {
+        echo "Paramètres manquants.";
     }
-
-    header('Location: ../../views/admin/adminView.php');
 } else {
-    echo "Paramètres manquants.";
+    echo "Méthode non autorisée.";
 }
