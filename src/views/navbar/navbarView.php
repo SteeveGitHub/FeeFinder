@@ -18,8 +18,8 @@
     <a href="#" class="logo">
         <img class="logo-img" src="../../assets/images/LogoFeeFinder.png" alt="feefinderlogo">
     </a>
+        <li><a href="../../controllers/accueil/profileCtrl.php"><i class="fa-solid fa-house-user"></i>Profile</a></li>
         <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fa-solid fa-house-user"></i>Home</a></li>
-        <!-- <li><a href="../../controllers/accueil/expensesCtrl.php"><i class="fa-solid fa-address-card"></i>Expenses</a></li> -->
         <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-euro-sign"></i>Frais</a></li>
         <li><a href="../../controllers/accueil/contactCtrl.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
         <li><a href="../connexion/loginView.php"><i class="fa-solid fa-sign-in"></i>Deconnexion</a></li>
