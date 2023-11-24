@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST["phone"]) && isset($_POST['adress']) && isset($_POST['postal']) && isset($_POST['city']) && isset($_POST['password'])) {
     try {
         include('../../database.php');
@@ -20,7 +21,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         if ($resultPassword[0] != 0) {
             echo "<script>alert('Mot de passse déjà utilsé');
                 window.location.href='../../views/inscription/registerView.php';
-            </script>";
+            </sc>";
         }
 
         $checkLoginQuery = "SELECT COUNT(1) FROM visiteur WHERE login = ?";

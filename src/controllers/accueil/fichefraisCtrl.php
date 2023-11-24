@@ -3,7 +3,7 @@ session_start();
 
 if (isset($_SESSION['status'])) {
     
-    header('Location: ../../views/frais/ajouterFraisView.php');
+    header('Location: ../../views/frais/selectionCasFraisView.php');
 
 } else {
     header('Location: ../verifUserSessionCtrl.php');
