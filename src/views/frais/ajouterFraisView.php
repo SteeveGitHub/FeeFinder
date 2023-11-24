@@ -31,14 +31,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (isset($_POST['horsForfaitSubmit'])) {
         // Traitement du formulaire "Fiche Hors Forfait"
         $user_id = $_SESSION['user'];
+        $number_days = $_POST["number_days"];
         $description = $_POST["description-area"];
         $total_price = $_POST["hors-forfait-prix"];
         $justificatif = isset($_FILES["justificatif"]["name"]) ? $_FILES["justificatif"]["name"] : "";
 
         // Exécuter la requête d'insertion pour "Fiche Hors Forfait"
-        $sql = "INSERT INTO hors_forfait (user_id, description, total_price, justificatif) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO hors_forfait (user_id, description, total_price, justificatif, number_days) VALUES (?, ?, ?, ?, ?)";
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([$user_id, $description, $total_price, $justificatif]);
+        $stmt->execute([$user_id, $description, $total_price, $justificatif, $number_days]);
 
         // Téléchargement du justificatif pour "Fiche Hors Forfait"
         $targetDir = "../../justificatifs/";
@@ -127,6 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <textarea rows="5" cols="20" name="description-area"></textarea>
                     <label for="totalPrice">Prix total:</label>
                     <input type="text" name="hors-forfait-prix" />
+                    <label for="number_days">Nombre de jours :</label>
+                    <input type="number" name="number_days" required/>
                     <label for="justificatif">Justificatif:</label>
                     <input type="file" name="justficatif" accept=".pdf" />
                     <input type="submit" value="Envoyer" name="horsForfaitSubmit">
@@ -138,11 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script>
         window.open(showForfaitForm())
-
-        // function toggleModal() {
-        //     var modal = document.getElementById('modal');
-        //     modal.style.display = (modal.style.display === 'none' || modal.style.display === '') ? 'block' : 'none';
-        // }
 
         function showForfaitForm() {
             document.getElementById('forfaitFormContainer').style.display = 'block';
