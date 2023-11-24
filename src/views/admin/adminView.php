@@ -19,7 +19,6 @@
                 <th>Numéro</th>
                 <th>Status</th>
                 <th>Action</th>
-                <th>Supprimer</th>
                 <th>Assigner voiture</th>
             </tr>
 
@@ -41,8 +40,6 @@
                 echo "<option value='bloqué' " . ($employe["status"] == 4 ? "selected" : "") . ">Bloqué</option>";
                 echo "</select>";
                 echo "</td>";
-
-                echo "<td><a href='../../models/admins/deleteAccount.php?id=" . $employe["id"] . "'>Supprimer</a></td>";
 
                 echo "<td>";
                 echo "<select onchange=\"assignCar(this.value, " . $employe["id"] . ")\">";
