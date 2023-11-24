@@ -31,6 +31,8 @@
                 echo "<td>" . $employe["prenom"] . "</td>";
                 echo "<td>" . $employe["numero"] . "</td>";
                 echo "<td>" . $employe["status"] . "</td>";
+                echo "<td><a href='modifier_profil.php?id=" . $employe["id"] . "'>Modifier</a></td>";
+
 
                 echo "<td>";
                 echo "<select onchange=\"changeRole(this.value, " . $employe["id"] . ")\">";
