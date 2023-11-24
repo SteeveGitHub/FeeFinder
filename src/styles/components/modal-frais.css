@@ -73,10 +73,10 @@ margin: 5rem 0 0 25rem;
     margin-bottom: 2rem;
 }
 
-input[type=date], 
-input[type=number], 
-input[type=text], 
-textarea {
+.modal-content input[type=date], 
+.modal-content input[type=number], 
+.modal-content input[type=text], 
+.modal-content textarea {
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
