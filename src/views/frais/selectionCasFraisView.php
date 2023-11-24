@@ -20,10 +20,10 @@ if (isset($_GET['action'])) {
     <title>FeeFinder</title>
 </head>
 <body>
-
-    <h1>GSB - Gestion des Frais</h1>
-
-    <div>
+    <?php include "../navbar/navbarView.php" ?>
+    
+    <div class="page-content">
+        <h1>GSB - Gestion des Frais</h1>
         <a href="?action=ajouterFrais"><button>Ajouter des frais</button></a>
         <a href="?action=consulterFrais"><button>Consulter mes frais</button></a>
     </div>
