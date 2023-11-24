@@ -1,5 +1,5 @@
     <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap" rel="stylesheet"> -->
+        <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 <body>
     <div class="main-inscription">
@@ -32,8 +43,7 @@
                 <input type="number" name="postal" class="postal" placeholder="code postal" required> <br/>
                 <label>ville</label><br />
                 <input type="text" name="city" class="city" placeholder="votre ville" required><br/>
-            <button class="button" type="submit">s'inscrire</button>
-
+                <button class="button" type="submit">s'inscrire</button>
             </form>
         </section>
     </div>
