@@ -1,125 +1,143 @@
+<?php
+include('../../database.php');
+
+function updateValideComptable($table, $id, $value, $comment)
+{
+    global $dbh;
+    $requete = $dbh->prepare("UPDATE $table SET valideComptable = ?, comment = ? WHERE id = ?");
+    $requete->execute([$value, $comment, $id]);
+}
+
+// Récupérer les données de la table frais
+$requeteFrais = $dbh->prepare("SELECT * FROM frais");
+$requeteFrais->execute();
+$fraisData = $requeteFrais->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer les données de la table hors_forfait
+$requeteHorsForfait = $dbh->prepare("SELECT * FROM hors_forfait");
+$requeteHorsForfait->execute();
+$horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interface Comptable - Gestion des Frais</title>
-    <style>
-        body {
-            background: linear-gradient(to right, #002E22, #01C372);
-            color: #FFFAF0;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Pour éviter le défilement horizontal lors de l'ouverture du menu */
-        }
-
-        h1, h2 {
-            background-color: #03BB6D;
-            color: #002e22;
-            padding: 10px;
-            text-align: center;
-            margin: 0; /* Réduit la marge du titre pour une apparence plus nette */
-        }
-
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        table, th, td {
-            border: 1px solid #002E22;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            color: white;
-            background-color: #002E22;
-        }
-
-        tr:nth-child(even) {
-            background-color: #002E22;
-            color: #fff;
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .action-buttons button {
-            padding: 8px;
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .action-buttons button.edit {
-            background-color: #03BB6D;
-            color: #002E22;
-        }
-
-        .action-buttons button.delete {
-            background-color: #FF4500;
-            color: #002e22;
-        }
-
-    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="../../styles/index.css">
 </head>
+
 <body>
-<?php include "../navbar/navbarView.php" ?>
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
+    <section class="comptable">
+        <h1>Frais Forfait</h1>
+        <table class="renderer comptable">
+            <tr>
+                <th>User ID</th>
+                <th>Date de début</th>
+                <th>Total Night Price</th>
+                <th>Night Quantity</th>
+                <th>Total Meal Price</th>
+                <th>Meal Quantity</th>
+                <th>KM</th>
+                <th>Transport Type</th>
+                <th>Valide Comptable</th>
+                <th>Montant Restant</th>
+                <th>Commentaire</th>
+                <th>Action</th>
+            </tr>
 
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-</script>
+            <?php
+            foreach ($fraisData as $frais) {
+                echo "<tr style='background-color: #c2f0c2;'>";
+                echo "<td>" . $frais["user_id"] . "</td>";
+                echo "<td>" . $frais["date_debut"] . "</td>";
+                echo "<td>" . $frais["total_night_price"] . "€</td>";
+                echo "<td>" . $frais["night_quantity"] . "</td>";
+                echo "<td>" . $frais["total_meal_price"] . "€</td>";
+                echo "<td>" . $frais["meal_quantity"] . "</td>";
+                echo "<td>" . $frais["km"] . "</td>";
+                echo "<td>" . $frais["transport_type"] . "</td>";
+                echo "<td>" . $frais["valideComptable"] . "</td>";
+                echo "<td>" . $frais["montantRestant"] . "€</td>";
+                echo "<td><input type='text' name='comment_frais_" . $frais["id"] . "'></td>";
+                echo "<td>";
+                echo "<form action='' method='post'>";
+                echo "<input type='hidden' name='id_frais' value='" . $frais["id"] . "'>";
+                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 1, document.querySelector(\"#comment_frais_{$frais["id"]}\"))'>Valider</button>";
+                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 0, document.querySelector(\"#comment_frais_{$frais["id"]}\"))'>Refuser</button>";
+                echo "</form>";
+                echo "</td>";
+                echo "</tr>";
+            }
+            ?>
 
-<h1>Interface Comptable - Gestion des Frais</h1>
+        </table>
 
-<h2>Liste des Frais</h2>
+        <h1>Hors Forfait</h1>
+        <table class="renderer comptable">
+            <tr>
+                <th>User ID</th>
+                <th>Description</th>
+                <th>Total Price</th>
+                <th>Justificatif</th>
+                <th>Valide Comptable</th>
+                <th>Montant Restant</th>
+                <th>Number Days</th>
+                <th>Pris en charge</th>
+                <th>Commentaire</th>
+                <th>Action</th>
+            </tr>
 
-<table>
-<tr>
-        <th>Date</th>
-        <th>Employé</th>
-        <th>Montant (€)</th>
-        <th>Action</th>
-    </tr>
-    <?php
-    // Connexion à la base de données avec PDO
-    try {
-        $dbh = new PDO('mysql:host=localhost;dbname=feefinder', "root", "");
-    } catch (PDOException $e) {
-        die("Erreur de connexion à la base de données : " . $e->getMessage());
-    }
+            <?php
+            foreach ($horsForfaitData as $horsForfait) {
+                echo "<tr style='background-color: #ffb6b6;'>";
+                echo "<td>" . $horsForfait["user_id"] . "</td>";
+                echo "<td>" . $horsForfait["description"] . "</td>";
+                echo "<td>" . $horsForfait["total_price"] . "€</td>";
+                echo "<td>" . $horsForfait["justificatif"] . "</td>";
+                echo "<td>" . $horsForfait["valideComptable"] . "</td>";
+                echo "<td>" . $horsForfait["montantRestant"] . "€</td>";
+                echo "<td>" . $horsForfait["number_days"] . "</td>";
+                echo "<td>" . $horsForfait["pris_en_charge"] . "€</td>";
+                echo "<td><input type='text' name='comment_hors_forfait_" . $horsForfait["id"] . "'></td>";
+                echo "<td>";
+                echo "<form action='' method='post'>";
+                echo "<input type='hidden' name='id_hors_forfait' value='" . $horsForfait["id"] . "'>";
+                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 1, document.querySelector(\"#comment_hors_forfait_{$horsForfait["id"]}\"))'>Valider</button>";
+                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 0, document.querySelector(\"#comment_hors_forfait_{$horsForfait["id"]}\"))'>Refuser</button>";
+                echo "</form>";
+                echo "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </section>
+    <script>
+        function updateValideComptable(table, id, value, commentInput) {
+            console.log("tabekl : ", table, id, value, commentInput)
+            $.ajax({
+                url: '../../models/comptable/comptable.php',
+                method: 'POST',
+                data: {
+                    table: table,
+                    id: id,
+                    value: value,
+                    comment: commentInput ? commentInput.value : ''
+                },
+                success: function(response) {
+                    alert('Opération réussie');
+                    location.reload();
+                },
+                error: function(error) {
+                    alert('Erreur lors de l\'opération');
+                }
+            });
+        }
+    </script>
 
-    // Exécuter une requête pour récupérer les données de frais
-    $query = "SELECT * FROM fichefrais";
-    $stmt = $dbh->query($query);
-
-    // Afficher les données dans le tableau
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>";
-        echo "<td>" . $row['date'] . "</td>";
-        echo "<td>" . $row['employe'] . "</td>";
-        echo "<td>" . $row['montant'] . "</td>";
-        echo "<td><a href='../frais/modifierFrais.php?id=" . $row['id'] . "'>Modifier</a> | <a href='../frais/supprimerFrais.php?id=" . $row['id'] . "'>Supprimer</a></td>";
-        echo "</tr>";
-    }
-
-    // Fermer la connexion
-    $dbh = null;
-    ?>
 </body>
+
 </html>
