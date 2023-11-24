@@ -29,6 +29,9 @@ if (isset($_SESSION['status'])) {
         <title>Liste des Fiches de Frais</title>
     </head>
     <body>
+        <?php
+        include '../navbar/navbarView.php';
+        ?>
         <h1>Liste des Fiches de Frais</h1>
         <table>
             <thead>

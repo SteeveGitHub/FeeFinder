@@ -11,7 +11,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $result = $requete->execute([$email]);
     $row = $requete->fetch();
 
-    if ($row && password_verify($password, $row["mdp"]) && $row["status"] !== 4) {
+    if ($row && password_verify($password, $row["mdp"]) && ($row["status"] !== 4)) {
         $idUser = $row["id"];
         $status = $row["status"];
         $_SESSION['user'] = $idUser;
