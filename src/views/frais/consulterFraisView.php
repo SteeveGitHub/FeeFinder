@@ -32,11 +32,11 @@ if (isset($_SESSION['status'])) {
         <?php
         include '../navbar/navbarView.php';
         ?>
+        <div class="consulter-frais-view">
         <h1>Liste des Fiches de Frais</h1>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Date de Début</th>
                     <th>Total Nuit</th>
                     <th>Quantité Nuit</th>
@@ -45,12 +45,14 @@ if (isset($_SESSION['status'])) {
                     <th>KM</th>
                     <th>Type de Transport</th>
                     <th>Statut</th>
+                    <th>Montant à charge</th>
+                    <th>Action</th>
+                    
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($fichesFrais as $fiche) : ?>
                     <tr>
-                        <td><?php echo $fiche['id']; ?></td>
                         <td><?php echo $fiche['date_debut']; ?></td>
                         <td><?php echo $fiche['total_night_price']; ?></td>
                         <td><?php echo $fiche['night_quantity']; ?></td>
@@ -71,29 +73,33 @@ if (isset($_SESSION['status'])) {
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Description</th>
                     <th>Total Price</th>
                     <th>Justificatif</th>
                     <th>Statut</th>
-                    <th>Montant Restant</th>
+                    <th>Montant à charge</th>
                     <th>Nombre de jours</th>
+                    <th>Action</th>
+
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($fichesHorsForfait as $horsForfait) : ?>
                     <tr>
-                        <td><?php echo $horsForfait['id']; ?></td>
                         <td><?php echo $horsForfait['description']; ?></td>
                         <td><?php echo $horsForfait['total_price']; ?></td>
                         <td><?php echo $horsForfait['justificatif']; ?></td>
                         <td><?php echo $horsForfait['valideComptable'] ? 'Validée' : 'En attente'; ?></td>
                         <td><?php echo $horsForfait['montantRestant']; ?></td>
                         <td><?php echo $horsForfait['number_days']; ?></td>
+                        <td>
+                        <a href="detailsFicheFrais.php?id=<?php echo $horsForfait['id']; ?>">Détails</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+                </div>
     </body>
     </html>
 <?php

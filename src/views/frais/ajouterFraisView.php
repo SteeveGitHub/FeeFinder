@@ -19,8 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Traitement des trajets
         $km = $_POST["km"];
         $transport_type = $_POST["transport"];
-
-
         // Exécuter la requête d'insertion pour "Fiche Forfait"
         $sql = "INSERT INTO frais (user_id, date_debut, total_night_price, night_quantity, total_meal_price, meal_quantity, km, transport_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $dbh->prepare($sql);
@@ -51,88 +49,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <title>FeeFinder</title>
+    <title>Title</title>
     <link href="../../styles/index.css" rel="stylesheet">
 </head>
 
 <body>
     <?php include "../navbar/navbarView.php" ?>
+    <!-- <input type="button" value="Afficher la modal" onclick="toggleModal()"> -->
+    <!-- <div id="modal" class="modal"> -->
         <div class="modal-content">
-            <section class="selector-container">
-                <div class="Selector-button" id="formSelectorContainer">
-                    <input type="button" value="Fiche Forfait" onclick="showForfaitForm()">
-                    <input type="button" value="Fiche Hors Forfait" onclick="showHorsForfaitForm()">
-                </div>
+            <!-- <span class="close" onclick="toggleModal()">&times;</span> -->
 
-                <div id="forfaitFormContainer">
-                    <h2>Fiche de frais</h2>
+            <div id="formSelectorContainer">
+                <input type="button" value="Fiche Forfait" onclick="showForfaitForm()">
+                <input type="button" value="Fiche Hors Forfait" onclick="showHorsForfaitForm()">
+            </div>
 
-                    <form id="forfaitForm" method="POST" action="ajouterFraisView.php">
-                        <label for="date">Date de début:</label>
-                        <input type="date" id="date" name="date" required><br><br>
-                        <div class="hebergement">
-                            <h2>Hébergements</h2>
-                            <p>Informations: Nous prenons en charge 50€/nuit maximum</p>
-                            <input type="text" name="priceNight" placeholder="Prix total" />
-                            <input type="number" name="numberNight" placeholder="Nombre de nuits" />
+            <div id="forfaitFormContainer">
+                <h2>Fiche de frais</h2>
+
+                <form id="forfaitForm" method="POST" action="ajouterFraisView.php">
+                    <label for="date">Date de début:</label>
+                    <input type="date" id="date" name="date" required><br><br>
+                    <div class="hebergement">
+                        <h2>Hébergements</h2>
+                        <p>Informations: Nous prenons en charge 50€/nuit maximum</p>
+                        <input type="text" name="priceNight" placeholder="Prix total" />
+                        <input type="number" name="numberNight" placeholder="Nombre de nuits" />
+                    </div>
+                    <div class="repas">
+                        <h2>Repas</h2>
+                        <p>Informations: Nous prenons en charge 10€/repas maximum</p>
+                        <input type="text" name="priceMeal" placeholder="Prix Total" />
+                        <input type="number" name="numberMeal" placeholder="Nombre de repas" />
+                    </div>
+                    <div class="trajet">
+                        <h2>Trajets</h2>
+                        <label for="cars">Voitures</label>
+                        <input type="checkbox" name="cars" />
+                        <label for="transports">Transports</label>
+                        <input type="checkbox" name="transports" />
+                        <div class="cars-container">
+                            <p>Frais kilométriques</p>
+                            <input type="number" name="km" placeholder="Nombre de KM" />
+                            <br />
                         </div>
-                        <div class="repas">
-                            <h2>Repas</h2>
-                            <p>Informations: Nous prenons en charge 10€/repas maximum</p>
-                            <input type="text" name="priceMeal" placeholder="Prix Total" />
-                            <input type="number" name="numberMeal" placeholder="Nombre de repas" />
-                        </div>
-                        <div class="trajet">
-                            <h2>Trajets</h2>
-                            <label for="cars">Voitures</label>
-                            <input type="checkbox" name="cars" />
+                        <div class="transports-container" id="transports-container">
                             <label for="transports">Transports</label>
-                            <input type="checkbox" name="transports" />
-                            <div class="cars-container">
-                                <p>Frais kilométriques</p>
-                                <input type="number" name="km" placeholder="Nombre de KM" />
-                                <br />
-                            </div>
-                            <div class="transports-container" id="transports-container">
-                                <label for="transports">Transports</label>
-                                <select id="transportType" name="transport">
-                                    <option value="">-- Choisir --</option>
-                                    <option value="train">Train</option>
-                                    <option value="bus">bus</option>
-                                    <option value="taxi">Taxi</option>
-                                    <option value="metro&tram">Métro / Tramway</option>
-                                </select><br><br>
-                                <br />
-                            </div>
+                            <select id="transportType" name="transport">
+                                <option value="">-- Choisir --</option>
+                                <option value="train">Train</option>
+                                <option value="bus">bus</option>
+                                <option value="taxi">Taxi</option>
+                                <option value="metro&tram">Métro / Tramway</option>
+                            </select><br><br>
+                            <br />
                         </div>
-                        <input type="submit" value="Envoyer" name="forfaitSubmit">
-                    </form>
-                </div>
+                    </div>
+                    <input type="submit" value="Envoyer" name="forfaitSubmit">
+                </form>
+            </div>
 
-                <div id="horsForfaitFormContainer">
-                    <h2>Fiche Hors Forfait</h2>
+            <div id="horsForfaitFormContainer">
+                <h2>Fiche Hors Forfait</h2>
 
-                    <form id="horsForfaitForm" method="POST" action="ajouterFraisView.php">
-                        <label for="description">Votre hors forfait:</label>
-                        <textarea rows="5" cols="20" name="description-area"></textarea>
-                        <label for="totalPrice">Prix total:</label>
-                        <input type="text" name="hors-forfait-prix" />
-                        <label for="number_days">Nombre de jours :</label>
-                        <input type="number" name="number_days" required/>
-                        <label for="justificatif">Justificatif:</label>
-                        <input type="file" name="justficatif" accept=".pdf" />
-                        <input type="submit" value="Envoyer" name="horsForfaitSubmit">
-                    </form>
-                </div>
-            </section>
+                <form id="horsForfaitForm" method="POST" action="ajouterFraisView.php">
+                    <label for="description">Votre hors forfait:</label>
+                    <textarea rows="5" cols="20" name="description-area"></textarea>
+                    <label for="totalPrice">Prix total:</label>
+                    <input type="text" name="hors-forfait-prix" />
+                    <label for="number_days">Nombre de jours :</label>
+                    <input type="number" name="number_days" required/>
+                    <label for="justificatif">Justificatif:</label>
+                    <input type="file" name="justficatif" accept=".pdf" />
+                    <input type="submit" value="Envoyer" name="horsForfaitSubmit">
+                </form>
+            </div>
         </div>
     <!-- </div> -->
 
