@@ -29,10 +29,22 @@ if (isset($_SESSION['user'])) {
             $updateResult = $updateStatement->execute([$newName, $newPrenom, $newEmail, $newPhone, $newAdress, $cp, $newCity, $userId]);
 
             if ($updateResult) {
+                if($_SESSION['status'] === 2){
                 echo "Les informations ont été mises à jour avec succès.";
                 header('Location: ../admin/adminView.php');
-            } else {
-                echo "Erreur lors de la mise à jour des informations.";
+                die();
+            }else if($_SESSION['status'] === 1){
+                header('Location: ../frais/consulterFraisView.php');
+                die();
+
+            }else if($_SESSION['status'] === 3){
+                header('Location: ../comptable/comptableView.php');
+                die();
+
+            }}else{
+                header('Location: ../connexion/loginView.php');
+                die();
+
             }
         }
 
@@ -70,7 +82,6 @@ if (isset($_SESSION['user'])) {
 
                 <label for="cp">Code postal:</label>
 <input type="number" name="cp" id="cp" value="<?= $user['cp'] ?>" required><br>
-
 
                 <label for="city">Ville:</label>
                 <input type="text" name="city" id="city" value="<?= $user['ville'] ?>" required><br>

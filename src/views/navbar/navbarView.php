@@ -12,8 +12,8 @@ if (isset($_SESSION['status'])) {
         // Visiteur
         $navbarContent = '
             <li><a href="../../controllers/accueil/profileCtrl.php"><i class="fa-solid fa-house-user"></i>Profil</a></li>
-            <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fa-solid fa-house-user"></i>Home</a></li>
-            <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-euro-sign"></i>Frais</a></li>
+            <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fa-solid fa-house-user"></i>Consulter</a></li>
+            <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-euro-sign"></i>Ajouter</a></li>
             <li><a href="../../controllers/accueil/contactCtrl.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
             <li><a href="../connexion/loginView.php"><i class="fa-solid fa-sign-in"></i>Deconnexion</a></li>';
     } else if ($_SESSION['status'] === 2) {
