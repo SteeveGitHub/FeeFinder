@@ -19,10 +19,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Traitement des trajets
         $km = $_POST["km"];
         $transport_type = $_POST["transport"];
-        // Exécuter la requête d'insertion pour "Fiche Forfait"
-        $sql = "INSERT INTO frais (user_id, date_debut, total_night_price, night_quantity, total_meal_price, meal_quantity, km, transport_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        // Récupération des montants depuis la table "fraisforfait"
+        $sqlSelect = "SELECT montant FROM fraisforfait WHERE id = ?";
+        $stmtSelect = $dbh->prepare($sqlSelect);
+        $id_night = 1;
+        $id_meal = 2;
+        $id_transport = 3;
+
+        // Calcul du montant à charge restant pour chaque type de frais
+        $montant_night = $stmtSelect->execute([$id_night]);
+        $montant_meal = $stmtSelect->execute([$id_meal]);
+        $montant_transport = $stmtSelect->execute([$id_transport]);
+
+        $charge_night = $number_night * $montant_night;
+        $charge_meal = $number_meal * $montant_meal;
+        $charge_transport = $km * $montant_transport;
+
+        // Calcul du montant total à charge restant
+        $total_charge = $charge_night + $charge_meal + $charge_transport;
+
+        // Exécuter la requête d'insertion pour "Fiche Forfait" avec le montant à charge restant
+        $sql = "INSERT INTO frais (user_id, date_debut, total_night_price, night_quantity, total_meal_price, meal_quantity, km, transport_type, montantRestant) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([$user_id, $date_debut, $price_night, $number_night, $price_meal, $number_meal, $km, $transport_type]);
+        $stmt->execute([$user_id, $date_debut, $price_night, $number_night, $price_meal, $number_meal, $km, $transport_type, $total_charge]);
+
+        // // Exécuter la requête d'insertion pour "Fiche Forfait"
+        // $sql = "INSERT INTO frais (user_id, date_debut, total_night_price, night_quantity, total_meal_price, meal_quantity, km, transport_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        // $stmt = $dbh->prepare($sql);
+        // $stmt->execute([$user_id, $date_debut, $price_night, $number_night, $price_meal, $number_meal, $km, $transport_type]);
 
         // Téléchargement des justificatifs
         $targetDir = "../../justificatifs/";
@@ -56,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="../../styles/index.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
@@ -78,18 +104,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="date" id="date" name="date" required><br><br>
                     <div class="hebergement">
                         <h2>Hébergements</h2>
-                        <p>Informations: Nous prenons en charge 50€/nuit maximum</p>
+                        <p id="nuitInfo">Informations: Nous prenons en charge 50€/nuit maximum</p>
                         <input type="text" name="priceNight" placeholder="Prix total" />
                         <input type="number" name="numberNight" placeholder="Nombre de nuits" />
                     </div>
                     <div class="repas">
                         <h2>Repas</h2>
-                        <p>Informations: Nous prenons en charge 10€/repas maximum</p>
+                        <p id="repasInfo">Informations: Nous prenons en charge 10€/repas maximum</p>
                         <input type="text" name="priceMeal" placeholder="Prix Total" />
                         <input type="number" name="numberMeal" placeholder="Nombre de repas" />
                     </div>
                     <div class="trajet">
                         <h2>Trajets</h2>
+                        <p id="transportInfo">Informations: Nous prenons en charge 50€/jour maximum</p>
                         <label for="cars">Voitures</label>
                         <input type="checkbox" name="cars" />
                         <label for="transports">Transports</label>
@@ -135,6 +162,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     <script>
+
+    function updateFormValues(type, elementId) {
+        console.log('toto')
+        $.ajax({
+            url: 'getDynamicValues.php',
+            method: 'GET',
+            data: { type: type },
+            dataType: 'json',
+            success: function(response) {
+                $('#' + elementId).html('Informations: Nous prenons en charge ' + response.montant + '€ maximum');
+            },
+            error: function(error) {
+                console.error('Erreur lors de la récupération des valeurs :', error);
+            }
+        });
+    }
+
+    window.open(updateFormValues('repas', 'repasInfo'));
+     window.open(updateFormValues('nuit', 'nuitInfo'));
+     window.open(updateFormValues('transport', 'transportInfo'));
+
         window.open(showForfaitForm())
 
         function showForfaitForm() {
@@ -149,6 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         function handleCheckboxClick(clickedCheckbox) {
+
             // Get the checkbox elements
             var carsCheckbox = document.getElementsByName('cars')[0];
             var transportsCheckbox = document.getElementsByName('transports')[0];
@@ -172,9 +221,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 carsCheckbox.checked = false;
             }
         }
-
-
-
 
         // Attach the handleCheckboxClick function to the click events of both checkboxes
         document.getElementsByName('cars')[0].addEventListener('click', function() {
