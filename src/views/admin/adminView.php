@@ -22,6 +22,8 @@
                 <th>Status</th>
                 <th>Action</th>
                 <th>Assigner voiture</th>
+                <th>Puissance voiture</th>
+
             </tr>
 
             <?php
@@ -48,7 +50,8 @@ function getStatusName($status)
                 echo "<td>" . $employe["prenom"] . "</td>";
                 echo "<td>" . $employe["numero"] . "</td>";
                 echo "<td>" . getStatusName($employe["status"]) . "</td>";
-                                echo "<td><a href='modifier_profil.php?id=" . $employe["id"] . "'>Modifier</a></td>";
+                echo "<td><a href='modifier_profil.php?id=" . $employe["id"] . "'>Modifier</a></td>";
+                echo "<p>" . $employe["cv_car"] . "</p>";
 
 
                 echo "<td>";
@@ -62,16 +65,14 @@ function getStatusName($status)
 
                 echo "<td>";
                 echo "<select onchange=\"assignCar(this.value, " . $employe["id"] . ")\">";
-                echo "<option value='3'>3 CV</option>";
-                echo "<option value='4'>4 CV</option>";
-                echo "<option value='5'>5 CV</option>";
-                echo "<option value='6'>6 CV</option>";
-               echo "<option value='7'>7 CV</option>";
+                $cvOptions = [3, 4, 5, 6, 7];
+                foreach ($cvOptions as $cvOption) {
+                $selected = ($cvOption === $employe["cv_car"]) ? "selected" : "";
+                echo "<option value='$cvOption' $selected>$cvOption CV</option>";
+                }
                 echo "</select>";
                 echo "</td>";
                 // ...
-
-
                 echo "</tr>";
             }
             ?>
@@ -132,6 +133,7 @@ function getStatusName($status)
             }
 
             function assignCar(cvValue, userId) {
+            console.log(cvValue, userId)
                 $.ajax({
                     url: '../../models/admins/updateCvCar.php',
                     method: 'POST',

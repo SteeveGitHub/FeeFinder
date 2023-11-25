@@ -4,20 +4,21 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['forfaitSubmit'])) {
+
         // Traitement du formulaire "Fiche Forfait"
         $user_id = $_SESSION['user'];
         $date_debut = date('Y-m-d', strtotime($_POST["date"]));
 
         // Traitement des hébergements
-        $price_night = $_POST["priceNight"];
-        $number_night = $_POST["numberNight"];
+        $price_night = $_POST["priceNight"] ? $_POST["priceNight"] : 0;
+        $number_night = $_POST["numberNight"] ? $_POST["numberNight"] : 0;
 
         // Traitement des repas
-        $number_meal = $_POST["numberMeal"];
-        $price_meal = $_POST["priceMeal"];
+        $number_meal = $_POST["numberMeal"] ? $_POST["numberMeal"] : 0;
+        $price_meal = $_POST["priceMeal"] ? $_POST["priceMeal"] : 0;
 
         // Traitement des trajets
-        $km = $_POST["km"];
+        $km = $_POST["km"] ? $_POST["km"] : 0;
         $transport_type = $_POST["transport"];
 
         // Récupération des montants depuis la table "fraisforfait"
@@ -28,9 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_transport = 3;
 
         // Calcul du montant à charge restant pour chaque type de frais
-        $montant_night = $stmtSelect->execute([$id_night]);
-        $montant_meal = $stmtSelect->execute([$id_meal]);
-        $montant_transport = $stmtSelect->execute([$id_transport]);
+        $stmtSelect->execute([$id_night]);
+        $montant_night = $stmtSelect->fetchColumn();
+
+        $stmtSelect->execute([$id_meal]);
+        $montant_meal = $stmtSelect->fetchColumn();
+
+        $stmtSelect->execute([$id_transport]);
+        $montant_transport = $stmtSelect->fetchColumn();
 
         $charge_night = $number_night * $montant_night;
         $charge_meal = $number_meal * $montant_meal;
@@ -39,15 +45,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Calcul du montant total à charge restant
         $total_charge = $charge_night + $charge_meal + $charge_transport;
 
+        $sqlSelectCV = "SELECT cv_car FROM visiteur WHERE id = ?";
+        $stmtSelectCV = $dbh->prepare($sqlSelectCV);
+        $stmtSelectCV->execute([$user_id]);
+        $cv_fiscal = $stmtSelectCV->fetchColumn();
+
+        function calculerMontantRembourse($distance, $table, $puissance, $dbhvar)
+        {
+            $sqlSelectKm = "SELECT distance_jusqu_5000_km, distance_5001_a_20000_km_coefficient, distance_5001_a_20000_km_fixe, distance_plus_20000_km FROM frais_kilometrique_gouvernement WHERE puissance_administrative = ?";
+            $stmtSelectKm = $dbhvar->prepare($sqlSelectKm);
+            $stmtSelectKm->execute([$puissance]);
+            $donneesKm = $stmtSelectKm->fetch(PDO::FETCH_ASSOC);
+
+            // Calculer le montant remboursé en fonction de la distance
+            if ($distance <= 5000) {
+                $remboursement = $distance * $donneesKm['distance_jusqu_5000_km'];
+            } elseif ($distance <= 20000) {
+                $remboursement = $distance * $donneesKm['distance_5001_a_20000_km_coefficient'] + $donneesKm['distance_5001_a_20000_km_fixe'];
+            } else {
+                $remboursement = $distance * $donneesKm['distance_plus_20000_km'];
+            }
+            return $remboursement;
+        }
+
+        // Calculer et afficher le montant remboursé
+        $montantRembourse = calculerMontantRembourse($km, 'frais_kilometrique_gouvernement', $cv_fiscal, $dbh);
+        $total_charge -= $montantRembourse;
+
         // Exécuter la requête d'insertion pour "Fiche Forfait" avec le montant à charge restant
         $sql = "INSERT INTO frais (user_id, date_debut, total_night_price, night_quantity, total_meal_price, meal_quantity, km, transport_type, montantRestant) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([$user_id, $date_debut, $price_night, $number_night, $price_meal, $number_meal, $km, $transport_type, $total_charge]);
-
-        // // Exécuter la requête d'insertion pour "Fiche Forfait"
-        // $sql = "INSERT INTO frais (user_id, date_debut, total_night_price, night_quantity, total_meal_price, meal_quantity, km, transport_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        // $stmt = $dbh->prepare($sql);
-        // $stmt->execute([$user_id, $date_debut, $price_night, $number_night, $price_meal, $number_meal, $km, $transport_type]);
 
         // Téléchargement des justificatifs
         $targetDir = "../../justificatifs/";
@@ -118,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <h2>Trajets</h2>
                         <p id="transportInfo">Informations: Nous prenons en charge 50€/jour maximum</p>
                         <label for="cars">Voitures</label>
-                        <input type="checkbox" name="cars" />
+                        <input checked type="checkbox" name="cars" />
                         <label for="transports">Transports</label>
                         <input type="checkbox" name="transports" />
                         <div class="cars-container">
@@ -153,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="number_days">Nombre de jours :</label>
                     <input type="number" name="number_days" required/>
                     <label for="justificatif">Justificatif:</label>
-                    <input type="file" name="justficatif" accept=".pdf" />
+                    <input type="file" name="justificatif" accept=".pdf" />
                     <input type="submit" value="Envoyer" name="horsForfaitSubmit">
                 </form>
             </div>
@@ -163,27 +191,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script>
 
-    function updateFormValues(type, elementId) {
-        console.log('toto')
-        $.ajax({
-            url: 'getDynamicValues.php',
-            method: 'GET',
-            data: { type: type },
-            dataType: 'json',
-            success: function(response) {
-                $('#' + elementId).html('Informations: Nous prenons en charge ' + response.montant + '€ maximum');
-            },
-            error: function(error) {
-                console.error('Erreur lors de la récupération des valeurs :', error);
-            }
-        });
-    }
+        function updateFormValues(type, elementId) {
+            console.log('toto')
+            $.ajax({
+                url: 'getDynamicValues.php',
+                method: 'GET',
+                data: { type: type },
+                dataType: 'json',
+                success: function(response) {
+                    $('#' + elementId).html('Informations: Nous prenons en charge ' + response.montant +
+                        '€ maximum selon le nombre de jours ou repas');
+                },
+                error: function(error) {
+                    console.error('Erreur lors de la récupération des valeurs :', error);
+                }
+            });
+        }
 
-    window.open(updateFormValues('repas', 'repasInfo'));
-     window.open(updateFormValues('nuit', 'nuitInfo'));
-     window.open(updateFormValues('transport', 'transportInfo'));
-
-        window.open(showForfaitForm())
+        updateFormValues('repas', 'repasInfo');
+        updateFormValues('nuit', 'nuitInfo');
+        updateFormValues('transport', 'transportInfo');
 
         function showForfaitForm() {
             document.getElementById('forfaitFormContainer').style.display = 'block';
@@ -230,7 +257,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             handleCheckboxClick(document.getElementsByName('transports')[0]);
         });
     </script>
-
 
 </body>
 
