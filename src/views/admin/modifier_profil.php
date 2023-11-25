@@ -1,8 +1,7 @@
 <?php
-// modifier_profil.php
+session_start();
 
 include('../../database.php');
-session_start();
 
 // Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['user'])) {
@@ -50,6 +49,8 @@ if (isset($_SESSION['user'])) {
         </head>
 
         <body>
+            <?php include_once "../../views/navbar/navbarView.php"?>
+            <div class="update-profile-view">
             <h1>Modifier le profil</h1>
             <form action="modifier_profil.php" method="post">
                 <label for="name">Nom:</label>
@@ -75,6 +76,7 @@ if (isset($_SESSION['user'])) {
 
                 <button type="submit">Enregistrer les modifications</button>
             </form>
+    </div>
         </body>
 
         </html>

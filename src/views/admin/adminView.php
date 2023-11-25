@@ -9,11 +9,13 @@
 </head>
 
 <body>
+    <?php
+    include "../../views/navbar/navbarView.php"
+    ?>
     <section class="employees">
         <h1>Employés</h1>
         <table class="renderer employees">
             <tr>
-                <th>ID</th>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Numéro</th>
@@ -24,14 +26,29 @@
 
             <?php
             include('../../models/admins/admin.php');
+function getStatusName($status)
+{
+    switch ($status) {
+        case 1:
+            return 'Visiteur';
+        case 2:
+            return 'Admin';
+        case 3:
+            return 'Comptable';
+        case 4:
+            return 'Bloqué';
+        default:
+            return 'Inconnu';
+    }
+}
+
             foreach ($row as $employe) {
                 echo "<tr>";
-                echo "<td>" . $employe["id"] . "</td>";
                 echo "<td>" . $employe["nom"] . "</td>";
                 echo "<td>" . $employe["prenom"] . "</td>";
                 echo "<td>" . $employe["numero"] . "</td>";
-                echo "<td>" . $employe["status"] . "</td>";
-                echo "<td><a href='modifier_profil.php?id=" . $employe["id"] . "'>Modifier</a></td>";
+                echo "<td>" . getStatusName($employe["status"]) . "</td>";
+                                echo "<td><a href='modifier_profil.php?id=" . $employe["id"] . "'>Modifier</a></td>";
 
 
                 echo "<td>";
@@ -49,7 +66,7 @@
                 echo "<option value='4'>4 CV</option>";
                 echo "<option value='5'>5 CV</option>";
                 echo "<option value='6'>6 CV</option>";
-                echo "<option value='7'>7 CV</option>";
+               echo "<option value='7'>7 CV</option>";
                 echo "</select>";
                 echo "</td>";
                 // ...
@@ -60,7 +77,8 @@
             ?>
         </table>
 
-        <h2>Modifier les frais forfaitaires</h2>
+        <div class="update-frais-admin">
+            <h2>Modifier les frais forfaitaires</h2>
         <form id="updateFraisForm">
             <?php
             // Afficher les frais forfaitaires
@@ -76,6 +94,7 @@
             ?>
             <button type="button" onclick="updateFrais()">Mettre à jour</button>
         </form>
+        </div>
 
         <script>
             function changeRole(role, userId) {

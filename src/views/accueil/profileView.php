@@ -49,8 +49,10 @@ if (isset($_SESSION['user'])) {
         </head>
 
         <body>
+            <?php include_once "../navbar/navbarView.php"?>
+            <div class="update-profile-view">
             <h1>Modifier le profil</h1>
-            <form action="modifier_profil.php?id=<?= $userId ?>" method="post">
+            <form action="../admin/modifier_profil.php?id=<?= $userId ?>" method="post">
                 <label for="name">Nom:</label>
                 <input type="text" name="name" id="name" value="<?= $user['nom'] ?>" required><br>
 
@@ -75,6 +77,7 @@ if (isset($_SESSION['user'])) {
 
                 <button type="submit">Enregistrer les modifications</button>
             </form>
+    </div>
         </body>
 
         </html>
