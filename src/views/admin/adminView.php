@@ -51,8 +51,6 @@ function getStatusName($status)
                 echo "<td>" . $employe["numero"] . "</td>";
                 echo "<td>" . getStatusName($employe["status"]) . "</td>";
                 echo "<td><a href='modifier_profil.php?id=" . $employe["id"] . "'>Modifier</a></td>";
-                echo "<p>" . $employe["cv_car"] . "</p>";
-
 
                 echo "<td>";
                 echo "<select onchange=\"changeRole(this.value, " . $employe["id"] . ")\">";
