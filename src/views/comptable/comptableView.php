@@ -31,8 +31,11 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <?php
+    include "../../views/navbar/navbarView.php"
+    ?>
     <section class="comptable">
-        <h1>Frais Forfait</h1>
+        <h1 class="comptableH1">Frais Forfait</h1>
         <table class="renderer comptable">
             <tr>
                 <th>User ID</th>
@@ -51,7 +54,7 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
 
             <?php
             foreach ($fraisData as $frais) {
-                echo "<tr style='background-color: #c2f0c2;'>";
+                echo "<tr style='background-color: #01C372;'>";
                 echo "<td>" . $frais["user_id"] . "</td>";
                 echo "<td>" . $frais["date_debut"] . "</td>";
                 echo "<td>" . $frais["total_night_price"] . "€</td>";
@@ -62,12 +65,12 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td>" . $frais["transport_type"] . "</td>";
                 echo "<td>" . $frais["valideComptable"] . "</td>";
                 echo "<td>" . $frais["montantRestant"] . "€</td>";
-                echo "<td><input type='text' name='comment_frais_" . $frais["id"] . "'></td>";
+                echo "<td><input type='text' name='comment_frais_" . $frais["id"] . "' id='comment_frais_" . $frais["id"] . "'></td>";
                 echo "<td>";
                 echo "<form action='' method='post'>";
                 echo "<input type='hidden' name='id_frais' value='" . $frais["id"] . "'>";
-                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 1, document.querySelector(\"#comment_frais_{$frais["id"]}\"))'>Valider</button>";
-                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 0, document.querySelector(\"#comment_frais_{$frais["id"]}\"))'>Refuser</button>";
+                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 1)'>Valider</button>";
+                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 0)'>Refuser</button>";
                 echo "</form>";
                 echo "</td>";
                 echo "</tr>";
@@ -101,13 +104,13 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td>" . $horsForfait["valideComptable"] . "</td>";
                 echo "<td>" . $horsForfait["montantRestant"] . "€</td>";
                 echo "<td>" . $horsForfait["number_days"] . "</td>";
-                echo "<td>" . $horsForfait["pris_en_charge"] . "€</td>";
-                echo "<td><input type='text' name='comment_hors_forfait_" . $horsForfait["id"] . "'></td>";
+                echo "<td><input type='number' name='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "' id='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "'></td>";
+                echo "<td><input type='text' name='comment_hors_frais_" . $horsForfait["id"] . "' id='comment_hors_frais_" . $horsForfait["id"] . "'></td>";
                 echo "<td>";
                 echo "<form action='' method='post'>";
                 echo "<input type='hidden' name='id_hors_forfait' value='" . $horsForfait["id"] . "'>";
-                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 1, document.querySelector(\"#comment_hors_forfait_{$horsForfait["id"]}\"))'>Valider</button>";
-                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 0, document.querySelector(\"#comment_hors_forfait_{$horsForfait["id"]}\"))'>Refuser</button>";
+                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 1)'>Valider</button>";
+                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 0)'>Refuser</button>";
                 echo "</form>";
                 echo "</td>";
                 echo "</tr>";
@@ -116,8 +119,13 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </section>
     <script>
-        function updateValideComptable(table, id, value, commentInput) {
-            console.log("tabekl : ", table, id, value, commentInput)
+        function updateValideComptable(table, id, value) {
+            var commentInput = $("#comment_frais_" + id);
+            var commentInputHors = $("#comment_hors_frais_" + id);
+            var prisEnChargeInput = $("#pris_en_charge_hors_forfait_" + id);
+
+            console.log("tabekl : ", table, id, value, commentInputHors.val(), prisEnChargeInput.val());
+
             $.ajax({
                 url: '../../models/comptable/comptable.php',
                 method: 'POST',
@@ -125,7 +133,8 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
                     table: table,
                     id: id,
                     value: value,
-                    comment: commentInput ? commentInput.value : ''
+                    comment: commentInput.val() ? commentInput.val() : commentInputHors.val(),
+                    prisEnCharge: prisEnChargeInput.val()
                 },
                 success: function(response) {
                     alert('Opération réussie');

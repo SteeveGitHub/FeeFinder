@@ -28,21 +28,21 @@
 
             <?php
             include('../../models/admins/admin.php');
-function getStatusName($status)
-{
-    switch ($status) {
-        case 1:
-            return 'Visiteur';
-        case 2:
-            return 'Admin';
-        case 3:
-            return 'Comptable';
-        case 4:
-            return 'Bloqué';
-        default:
-            return 'Inconnu';
-    }
-}
+            function getStatusName($status)
+            {
+                switch ($status) {
+                    case 1:
+                        return 'Visiteur';
+                    case 2:
+                        return 'Admin';
+                    case 3:
+                        return 'Comptable';
+                    case 4:
+                        return 'Bloqué';
+                    default:
+                        return 'Inconnu';
+                }
+            }
 
             foreach ($row as $employe) {
                 echo "<tr>";
@@ -65,8 +65,8 @@ function getStatusName($status)
                 echo "<select onchange=\"assignCar(this.value, " . $employe["id"] . ")\">";
                 $cvOptions = [3, 4, 5, 6, 7];
                 foreach ($cvOptions as $cvOption) {
-                $selected = ($cvOption === $employe["cv_car"]) ? "selected" : "";
-                echo "<option value='$cvOption' $selected>$cvOption CV</option>";
+                    $selected = ($cvOption === $employe["cv_car"]) ? "selected" : "";
+                    echo "<option value='$cvOption' $selected>$cvOption CV</option>";
                 }
                 echo "</select>";
                 echo "</td>";
@@ -78,21 +78,21 @@ function getStatusName($status)
 
         <div class="update-frais-admin">
             <h2>Modifier les frais forfaitaires</h2>
-        <form id="updateFraisForm">
-            <?php
-            // Afficher les frais forfaitaires
-            $sql = "SELECT * FROM fraisforfait";
-            $result = $dbh->query($sql);
+            <form id="updateFraisForm">
+                <?php
+                // Afficher les frais forfaitaires
+                $sql = "SELECT * FROM fraisforfait";
+                $result = $dbh->query($sql);
 
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<div>";
-                echo "<label for='frais_" . $row['id'] . "'>" . $row['libelle'] . ": </label>";
-                echo "<input type='text' name='frais_" . $row['id'] . "' id='frais_" . $row['id'] . "' value='" . $row['montant'] . "'>";
-                echo "</div>";
-            }
-            ?>
-            <button type="button" onclick="updateFrais()">Mettre à jour</button>
-        </form>
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<div>";
+                    echo "<label for='frais_" . $row['id'] . "'>" . $row['libelle'] . ": </label>";
+                    echo "<input type='text' name='frais_" . $row['id'] . "' id='frais_" . $row['id'] . "' value='" . $row['montant'] . "'>";
+                    echo "</div>";
+                }
+                ?>
+                <button type="button" onclick="updateFrais()">Mettre à jour</button>
+            </form>
         </div>
 
         <script>
@@ -131,7 +131,7 @@ function getStatusName($status)
             }
 
             function assignCar(cvValue, userId) {
-            console.log(cvValue, userId)
+                console.log(cvValue, userId)
                 $.ajax({
                     url: '../../models/admins/updateCvCar.php',
                     method: 'POST',

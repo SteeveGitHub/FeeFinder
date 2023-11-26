@@ -5,6 +5,18 @@ $table = $_POST['table'];
 $id = $_POST['id'];
 $value = $_POST['value'];
 $comment = $_POST['comment'];
+$prisEnCharge = is_numeric($_POST['prisEnCharge']) ? $_POST['prisEnCharge'] : 0;
 
-$requete = $dbh->prepare("UPDATE $table SET valideComptable = ?, comment = ? WHERE id = ?");
-$requete->execute([$value, $comment, $id]);
+$sql = "";
+$params = [];
+
+if ($table === "frais") {
+    $sql = "UPDATE $table SET valideComptable = ?, comment = ? WHERE id = ?";
+    $params = [$value, $comment, $id];
+} else {
+    $sql = "UPDATE $table SET valideComptable = ?, comment = ?, pris_en_charge = ? WHERE id = ?";
+    $params = [$value, $comment, $prisEnCharge, $id];
+}
+
+$requete = $dbh->prepare($sql);
+$requete->execute($params);
