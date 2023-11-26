@@ -37,6 +37,8 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
     <section class="comptable">
         <h1 class="comptableH1">Frais Forfait</h1>
         <table class="renderer comptable">
+            <input type="button" title="Valider toutes les fiches" onclick="validAllFiche()" value="Valider les Fiches">
+
             <tr>
                 <th>User ID</th>
                 <th>Date de début</th>
@@ -119,6 +121,20 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </section>
     <script>
+        function validAllFiche(table, id, value) {
+            $.ajax({
+                url: '../../models/comptable/updateAllFiche.php',
+                method: 'POST',
+                success: function(response) {
+                    alert('Opération réussie');
+                    location.reload();
+                },
+                error: function(error) {
+                    alert('Erreur lors de l\'opération');
+                }
+            });
+        }
+
         function updateValideComptable(table, id, value) {
             var commentInput = $("#comment_frais_" + id);
             var commentInputHors = $("#comment_hors_frais_" + id);
