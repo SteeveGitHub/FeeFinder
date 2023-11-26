@@ -12,13 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Traitement des hébergements
         $price_night = $_POST["priceNight"] ? $_POST["priceNight"] : 0;
         $number_night = $_POST["numberNight"] ? $_POST["numberNight"] : 0;
-        $total_nuit_user = ($price_night * $number_night)/$number_night;
+        // $total_nuit_user = ($price_night * $number_night)/$number_night;
+        $total_nuit_user = ($number_night != 0) ? ($price_night * $number_night) / $number_night : 0;
 
         // Traitement des repas
         $number_meal = $_POST["numberMeal"] ? $_POST["numberMeal"] : 0;
         $price_meal = $_POST["priceMeal"] ? $_POST["priceMeal"] : 0;
-        $total_meal_user = ($number_meal * $price_meal)/$number_meal;
-
+        $total_meal_user = ($number_meal != 0) ? ($number_meal * $price_meal) / $number_meal : 0;
+        
         $total_user = $total_nuit_user + $total_meal_user;
 
         // Traitement des trajets
