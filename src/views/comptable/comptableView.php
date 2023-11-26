@@ -40,7 +40,6 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
             <input type="button" title="Valider toutes les fiches" onclick="validAllFiche()" value="Valider les Fiches">
 
             <tr>
-                <th>User ID</th>
                 <th>Date de début</th>
                 <th>Total Night Price</th>
                 <th>Night Quantity</th>
@@ -57,7 +56,6 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
             <?php
             foreach ($fraisData as $frais) {
                 echo "<tr style='background-color: #01C372;'>";
-                echo "<td>" . $frais["user_id"] . "</td>";
                 echo "<td>" . $frais["date_debut"] . "</td>";
                 echo "<td>" . $frais["total_night_price"] . "€</td>";
                 echo "<td>" . $frais["night_quantity"] . "</td>";
@@ -84,7 +82,6 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
         <h1>Hors Forfait</h1>
         <table class="renderer comptable">
             <tr>
-                <th>User ID</th>
                 <th>Description</th>
                 <th>Total Price</th>
                 <th>Justificatif</th>
@@ -99,7 +96,6 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
             <?php
             foreach ($horsForfaitData as $horsForfait) {
                 echo "<tr style='background-color: #ffb6b6;'>";
-                echo "<td>" . $horsForfait["user_id"] . "</td>";
                 echo "<td>" . $horsForfait["description"] . "</td>";
                 echo "<td>" . $horsForfait["total_price"] . "€</td>";
                 echo "<td>" . $horsForfait["justificatif"] . "</td>";
