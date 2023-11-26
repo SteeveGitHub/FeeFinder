@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action === 'admin') {
             $requete = $dbh->prepare("UPDATE visiteur SET status = 2 WHERE id = ?");
             $requete->execute([$id]);
-        } else if ($action === 'commercial') {
+        } else if ($action === 'comptable') {
             $requete = $dbh->prepare("UPDATE visiteur SET status = 3 WHERE id = ?");
             $requete->execute([$id]);
         } else if ($action === 'visiteur') {
