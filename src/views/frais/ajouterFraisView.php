@@ -12,10 +12,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Traitement des hébergements
         $price_night = $_POST["priceNight"] ? $_POST["priceNight"] : 0;
         $number_night = $_POST["numberNight"] ? $_POST["numberNight"] : 0;
+        // $total_nuit_user = ($price_night * $number_night)/$number_night;
+        $total_nuit_user = ($number_night != 0) ? ($price_night * $number_night) / $number_night : 0;
 
         // Traitement des repas
         $number_meal = $_POST["numberMeal"] ? $_POST["numberMeal"] : 0;
         $price_meal = $_POST["priceMeal"] ? $_POST["priceMeal"] : 0;
+        $total_meal_user = ($number_meal != 0) ? ($number_meal * $price_meal) / $number_meal : 0;
+        
+        $total_user = $total_nuit_user + $total_meal_user;
 
         // Traitement des trajets
         $km = $_POST["km"] ? $_POST["km"] : 0;
@@ -35,15 +40,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtSelect->execute([$id_meal]);
         $montant_meal = $stmtSelect->fetchColumn();
 
-        $stmtSelect->execute([$id_transport]);
-        $montant_transport = $stmtSelect->fetchColumn();
+        // $stmtSelect->execute([$id_transport]);
+        // $montant_transport = $stmtSelect->fetchColumn();
 
-        $charge_night = $number_night * $montant_night;
-        $charge_meal = $number_meal * $montant_meal;
-        $charge_transport = $km * $montant_transport;
+        $refund_night = $number_night * $montant_night;
+        $refund_meal = $number_meal * $montant_meal;
+        // $refund_transport = $km * $montant_transport;
 
         // Calcul du montant total à charge restant
-        $total_charge = $charge_night + $charge_meal + $charge_transport;
+        $total_refund = $refund_night + $refund_meal;
 
         $sqlSelectCV = "SELECT cv_car FROM visiteur WHERE id = ?";
         $stmtSelectCV = $dbh->prepare($sqlSelectCV);
@@ -70,7 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Calculer et afficher le montant remboursé
         $montantRembourse = calculerMontantRembourse($km, 'frais_kilometrique_gouvernement', $cv_fiscal, $dbh);
-        $total_charge -= $montantRembourse;
+        $total_refund += $montantRembourse;
+
+        // Calculer le montant à charge restant
+        $total_charge = $total_user - $total_refund;
 
         // Exécuter la requête d'insertion pour "Fiche Forfait" avec le montant à charge restant
         $sql = "INSERT INTO frais (user_id, date_debut, total_night_price, night_quantity, total_meal_price, meal_quantity, km, transport_type, montantRestant) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
