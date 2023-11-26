@@ -26,8 +26,7 @@ if (isset($_SESSION['status'])) {
         // Comptable
         $navbarContent = '
             <li><a href="../../controllers/accueil/profileCtrl.php"><i class="fa-solid fa-house-user"></i>Profil</a></li>
-            <li><a href="../../controllers/accueil/accueilCtrl.php"><i class="fa-solid fa-house-user"></i>Home</a></li>
-            <li><a href="../../controllers/accueil/fichefraisCtrl.php"><i class="fa-solid fa-euro-sign"></i>Frais</a></li>
+            <li><a href="../../views/comptable/comptableView.php"><i class="fa-solid fa-euro-sign"></i>Frais</a></li>
             <li><a href="../../controllers/accueil/contactCtrl.php"><i class="fa-solid fa-address-book"></i>Contact</a></li>
             <li><a href="../connexion/loginView.php"><i class="fa-solid fa-sign-in"></i>Deconnexion</a></li>';
     
