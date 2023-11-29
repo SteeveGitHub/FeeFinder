@@ -65,9 +65,12 @@ if (isset($_SESSION['status'])) {
                             <td><?php echo $fiche['transport_type']; ?></td>
                             <td><?php echo $fiche['valideComptable'] ? 'Validée' : 'En attente'; ?></td>
                             <td><?php echo $fiche['montantRestant']; ?></td>
-                            <td>
-                                <a href="detailsFicheFrais.php?id=<?php echo $fiche['id']; ?>&table=frais">Modifier</a>
-                            </td>
+
+                            <?php
+                            if(!$fiche['valideComptable']){
+                                echo '<td><a href="detailsFicheFrais.php?id=' . $fiche['id'] . '&table=frais">Modifier</a></td>';
+                            }
+                            ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -95,9 +98,11 @@ if (isset($_SESSION['status'])) {
                             <td><?php echo $horsForfait['valideComptable'] ? 'Validée' : 'En attente'; ?></td>
                             <td><?php echo $horsForfait['montantRestant']; ?></td>
                             <td><?php echo $horsForfait['number_days']; ?></td>
-                            <td>
-                                <a href="detailsFicheFrais.php?id=<?php echo $horsForfait['id']; ?>&table=hors_forfait">Modifier</a>
-                            </td>
+                            <?php
+                            if(!$horsForfait['valideComptable']){
+                                echo '<td><a href="detailsFicheFrais.php?id=' . $horsForfait['id'] . '&table=hors_forfait">Modifier</a></td>';
+                            }
+                            ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
