@@ -130,8 +130,22 @@ if (($commentaireDB != "" && !$ficheValidee && !$ficheRefusee) || ($ficheValidee
                 // echo $horsForfait["valideComptable"] == 0 ? "<td>" . "En attente" . "</td>" : "<td>" . "Validé" . "</td>";
                 echo "<td>" . $horsForfait["montantRestant"] . "€</td>";
                 echo "<td>" . $horsForfait["number_days"] . "</td>";
-                echo "<td><input type='number' name='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "' id='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "'></td>";
-                echo "<td><input type='text' name='comment_hors_frais_" . $horsForfait["id"] . "' id='comment_hors_frais_" . $horsForfait["id"] . "'></td>";
+                if($horsForfait["pris_en_charge"] != ""){
+                echo "<td>" . $horsForfait["pris_en_charge"] . "€</td>";
+                }else{
+                    echo "<td><input type='number' name='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "' id='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "'></td>";
+                }
+                $commentaireDB = $horsForfait["comment"]; // Assurez-vous d'adapter cela à votre structure de base de données
+                $ficheRefusee = $horsForfait["valideComptable"] == 2;
+                $ficheValidee = $horsForfait["valideComptable"] == 1;
+
+                if (($commentaireDB != "" && !$ficheValidee && !$ficheRefusee) || ($ficheValidee || $ficheRefusee)) {
+                    echo "<td>$commentaireDB</td>";
+                } else {
+                    // Sinon, on affiche l'input
+                    echo "<td><input type='text' name='comment_hors_frais_" . $horsForfait["id"] . "' id='comment_hors_frais_" . $horsForfait["id"] . "'></td>";
+                }
+                // echo "<td><input type='text' name='comment_hors_frais_" . $horsForfait["id"] . "' id='comment_hors_frais_" . $horsForfait["id"] . "'></td>";
                 echo "<td>";
                 echo "<form action='' method='post'>";
                 echo "<input type='hidden' name='id_hors_forfait' value='" . $horsForfait["id"] . "'>";

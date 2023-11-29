@@ -201,7 +201,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-
     <script>
         function updateFormValues(type, elementId) {
             console.log('toto')
@@ -221,6 +220,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             });
         }
+
+        document.getElementById('forfaitFormContainer').style.display = 'block';
+            document.getElementById('horsForfaitFormContainer').style.display = 'none';
+            document.getElementById('transports-container').style.display = 'none'
 
         updateFormValues('repas', 'repasInfo');
         updateFormValues('nuit', 'nuitInfo');

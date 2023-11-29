@@ -35,6 +35,7 @@ form {
 
 label {
     margin-bottom: 8px;
+    color: #333;
 }
 
 input[type="text"], input[type="number"], input[type="date"], textarea {
