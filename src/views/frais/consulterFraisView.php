@@ -66,7 +66,7 @@ if (isset($_SESSION['status'])) {
                             <td><?php echo $fiche['valideComptable'] ? 'Validée' : 'En attente'; ?></td>
                             <td><?php echo $fiche['montantRestant']; ?></td>
                             <td>
-                                <a href="detailsFicheFrais.php?id=<?php echo $fiche['id']; ?>&table=frais">Détails</a>
+                                <a href="detailsFicheFrais.php?id=<?php echo $fiche['id']; ?>&table=frais">Modifier</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -96,7 +96,7 @@ if (isset($_SESSION['status'])) {
                             <td><?php echo $horsForfait['montantRestant']; ?></td>
                             <td><?php echo $horsForfait['number_days']; ?></td>
                             <td>
-                                <a href="detailsFicheFrais.php?id=<?php echo $horsForfait['id']; ?>&table=hors_forfait">Détails</a>
+                                <a href="detailsFicheFrais.php?id=<?php echo $horsForfait['id']; ?>&table=hors_forfait">Modifier</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

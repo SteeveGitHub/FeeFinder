@@ -50,6 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Calcul du montant total à charge restant
         $total_refund = $refund_night + $refund_meal;
 
+        if($total_user < $total_refund) {
+            $total_refund = $total_user;
+        }
+
         $sqlSelectCV = "SELECT cv_car FROM visiteur WHERE id = ?";
         $stmtSelectCV = $dbh->prepare($sqlSelectCV);
         $stmtSelectCV->execute([$user_id]);

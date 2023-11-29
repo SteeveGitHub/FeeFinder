@@ -31,11 +31,10 @@ $fiche = $query->fetch(PDO::FETCH_ASSOC);
     <?php
     include '../navbar/navbarView.php';
     ?>
-    <h1>Détails et Modification de la Fiche</h1>
-
     <?php if ($table === 'frais') : ?>
-        <h2>Informations pour la fiche "Frais"</h2>
         <div id="forfaitFormContainer">
+        <h1>Informations pour la fiche "Frais"</h1>
+
             <h2>Fiche de frais</h2>
 
             <form id="forfaitForm" method="POST" action="updateFiche.php">
@@ -68,7 +67,7 @@ $fiche = $query->fetch(PDO::FETCH_ASSOC);
                     <input type="checkbox" name="transports" <?php echo $fiche['transport_type'] === 'transport' ? 'checked' : ''; ?> />
 
                     <div class="cars-container" style="<?php echo $fiche['transport_type'] === 'voiture' ? 'display: block;' : 'display: none;'; ?>">
-                        <p>Frais kilométriques</p>
+                        <p>Nombre de kilomètres</p>
                         <input type="number" name="km" placeholder="Nombre de KM" value="<?php echo $fiche['km']; ?>" />
                         <br />
                     </div>
