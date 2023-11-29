@@ -33,7 +33,7 @@ $fiche = $query->fetch(PDO::FETCH_ASSOC);
     ?>
     <?php if ($table === 'frais') : ?>
         <div id="forfaitFormContainer">
-        <h1>Informations pour la fiche "Frais"</h1>
+            <h1>Informations pour la fiche "Frais"</h1>
 
             <h2>Fiche de frais</h2>
 
@@ -41,39 +41,39 @@ $fiche = $query->fetch(PDO::FETCH_ASSOC);
                 <input type="hidden" name="table" value="<?php echo $table; ?>">
                 <input type="hidden" name="id" value="<?php echo $fiche['id']; ?>">
 
-                <label for="date">Date de début:</label>
-                <input type="date" id="date" name="date" required value="<?php echo date('Y-m-d', strtotime($fiche['date_debut'])); ?>"><br><br>
+                <label class="label-element" for="date">Date de début:</label>
+                <input class="input-element" type="date" id="date" name="date" required value="<?php echo date('Y-m-d', strtotime($fiche['date_debut'])); ?>"><br><br>
 
                 <div class="hebergement">
                     <h2>Hébergements</h2>
                     <p id="nuitInfo">Informations: Nous prenons en charge 50€/nuit maximum</p>
-                    <input type="text" name="priceNight" placeholder="Prix total" value="<?php echo $fiche['total_night_price']; ?>" />
-                    <input type="number" name="numberNight" placeholder="Nombre de nuits" value="<?php echo $fiche['night_quantity']; ?>" />
+                    <input class="input-element" type="text" name="priceNight" placeholder="Prix total" value="<?php echo $fiche['total_night_price']; ?>" />
+                    <input class="input-element" type="number" name="numberNight" placeholder="Nombre de nuits" value="<?php echo $fiche['night_quantity']; ?>" />
                 </div>
 
                 <div class="repas">
                     <h2>Repas</h2>
                     <p id="repasInfo">Informations: Nous prenons en charge 10€/repas maximum</p>
-                    <input type="text" name="priceMeal" placeholder="Prix Total" value="<?php echo $fiche['total_meal_price']; ?>" />
-                    <input type="number" name="numberMeal" placeholder="Nombre de repas" value="<?php echo $fiche['meal_quantity']; ?>" />
+                    <input class="input-element" type="text" name="priceMeal" placeholder="Prix Total" value="<?php echo $fiche['total_meal_price']; ?>" />
+                    <input class="input-element" type="number" name="numberMeal" placeholder="Nombre de repas" value="<?php echo $fiche['meal_quantity']; ?>" />
                 </div>
 
                 <div class="trajet">
                     <h2>Trajets</h2>
                     <p id="transportInfo">Informations: Nous prenons en charge 50€/jour maximum</p>
-                    <label for="cars">Voitures</label>
+                    <label class="label-element" for="cars">Voitures</label>
                     <input type="checkbox" name="cars" <?php echo $fiche['transport_type'] === 'voiture' ? 'checked' : ''; ?> />
-                    <label for="transports">Transports</label>
+                    <label class="label-element" for="transports">Transports</label>
                     <input type="checkbox" name="transports" <?php echo $fiche['transport_type'] === 'transport' ? 'checked' : ''; ?> />
 
                     <div class="cars-container" style="<?php echo $fiche['transport_type'] === 'voiture' ? 'display: block;' : 'display: none;'; ?>">
                         <p>Nombre de kilomètres</p>
-                        <input type="number" name="km" placeholder="Nombre de KM" value="<?php echo $fiche['km']; ?>" />
+                        <input class="input-element" type="number" name="km" placeholder="Nombre de KM" value="<?php echo $fiche['km']; ?>" />
                         <br />
                     </div>
 
                     <div class="transports-container" id="transports-container" style="<?php echo $fiche['transport_type'] === 'transport' ? 'display: block;' : 'display: none;'; ?>">
-                        <label for="transportType">Transports</label>
+                        <label class="label-element" for="transportType">Transports</label>
                         <select id="transportType" name="transport">
                             <option value="">-- Choisir --</option>
                             <option value="train" <?php echo $fiche['transport_type'] === 'train' ? 'selected' : ''; ?>>Train</option>
@@ -98,16 +98,16 @@ $fiche = $query->fetch(PDO::FETCH_ASSOC);
                 <input type="hidden" name="table" value="<?php echo $table; ?>">
                 <input type="hidden" name="id" value="<?php echo $fiche['id']; ?>">
 
-                <label for="description">Votre hors forfait:</label>
-                <textarea rows="5" cols="20" name="description-area"><?php echo $fiche['description']; ?></textarea>
+                <label class="label-element" for="description">Votre hors forfait:</label>
+                <textarea class="input-element" rows="5" cols="20" name="description-area"><?php echo $fiche['description']; ?></textarea>
 
-                <label for="totalPrice">Prix total:</label>
-                <input type="text" name="hors-forfait-prix" value="<?php echo $fiche['total_price']; ?>" />
+                <label class="label-element" for="totalPrice">Prix total:</label>
+                <input class="input-element" type="text" name="hors-forfait-prix" value="<?php echo $fiche['total_price']; ?>" />
 
-                <label for="number_days">Nombre de jours :</label>
-                <input type="number" name="number_days" required value="<?php echo $fiche['number_days']; ?>" />
+                <label class="label-element" for="number_days">Nombre de jours :</label>
+                <input class="input-element" type="number" name="number_days" required value="<?php echo $fiche['number_days']; ?>" />
 
-                <label for="justificatif">Justificatif:</label>
+                <label class="label-element" for="justificatif">Justificatif:</label>
                 <input type="file" name="justificatif" accept=".pdf" />
 
                 <input type="submit" value="Envoyer" name="horsForfaitSubmit">

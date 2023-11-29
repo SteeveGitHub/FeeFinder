@@ -67,7 +67,7 @@ if (isset($_SESSION['status'])) {
                             <td><?php echo $fiche['montantRestant']; ?></td>
 
                             <?php
-                            if(!$fiche['valideComptable']){
+                            if (!$fiche['valideComptable']) {
                                 echo '<td><a href="detailsFicheFrais.php?id=' . $fiche['id'] . '&table=frais">Modifier</a></td>';
                             }
                             ?>
@@ -84,6 +84,7 @@ if (isset($_SESSION['status'])) {
                         <th>Justificatif</th>
                         <th>Statut</th>
                         <th>Montant à charge</th>
+                        <th>Pris en charge</th>
                         <th>Nombre de jours</th>
                         <th>Action</th>
 
@@ -96,10 +97,11 @@ if (isset($_SESSION['status'])) {
                             <td><?php echo $horsForfait['total_price']; ?></td>
                             <td><?php echo $horsForfait['justificatif']; ?></td>
                             <td><?php echo $horsForfait['valideComptable'] ? 'Validée' : 'En attente'; ?></td>
-                            <td><?php echo $horsForfait['montantRestant']; ?></td>
+                            <td><?php echo ($horsForfait['total_price'] - $horsForfait['pris_en_charge']); ?></td>
+                            <td><?php echo $horsForfait['pris_en_charge']; ?></td>
                             <td><?php echo $horsForfait['number_days']; ?></td>
                             <?php
-                            if(!$horsForfait['valideComptable']){
+                            if (!$horsForfait['valideComptable']) {
                                 echo '<td><a href="detailsFicheFrais.php?id=' . $horsForfait['id'] . '&table=hors_forfait">Modifier</a></td>';
                             }
                             ?>

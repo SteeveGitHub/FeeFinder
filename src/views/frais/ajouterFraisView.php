@@ -13,14 +13,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $price_night = $_POST["priceNight"] ? $_POST["priceNight"] : 0;
         $number_night = $_POST["numberNight"] ? $_POST["numberNight"] : 0;
         // $total_nuit_user = ($price_night * $number_night)/$number_night;
-        $total_nuit_user = ($number_night != 0) ? ($price_night * $number_night) / $number_night : 0;
+        $total_nuit_user = ($number_night != 0) ? $price_night : 0;
+        $total_nuit_user = intval($total_nuit_user);
 
         // Traitement des repas
         $number_meal = $_POST["numberMeal"] ? $_POST["numberMeal"] : 0;
         $price_meal = $_POST["priceMeal"] ? $_POST["priceMeal"] : 0;
-        $total_meal_user = ($number_meal != 0) ? ($number_meal * $price_meal) / $number_meal : 0;
-        
+        $total_meal_user = ($number_meal != 0) ? $price_meal : 0;
+        $total_meal_user = intval($total_meal_user);
+
         $total_user = $total_nuit_user + $total_meal_user;
+        $total_user = intval($total_user);
 
         // Traitement des trajets
         $km = $_POST["km"] ? $_POST["km"] : 0;
@@ -43,14 +46,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // $stmtSelect->execute([$id_transport]);
         // $montant_transport = $stmtSelect->fetchColumn();
 
-        $refund_night = $number_night * $montant_night;
-        $refund_meal = $number_meal * $montant_meal;
+        $refund_night = intval($number_night) * intval($montant_night);
+        $refund_meal = intval($number_meal) * intval($montant_meal);
         // $refund_transport = $km * $montant_transport;
 
         // Calcul du montant total à charge restant
-        $total_refund = $refund_night + $refund_meal;
+        $total_refund = intval($refund_night) + intval($refund_meal);
+        $total_refund = intval($total_refund);
 
-        if($total_user < $total_refund) {
+        if ($total_user < $total_refund) {
             $total_refund = $total_user;
         }
 
@@ -61,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         function calculerMontantRembourse($distance, $table, $puissance, $dbhvar)
         {
+            $remboursement = 0;
             $sqlSelectKm = "SELECT distance_jusqu_5000_km, distance_5001_a_20000_km_coefficient, distance_5001_a_20000_km_fixe, distance_plus_20000_km FROM frais_kilometrique_gouvernement WHERE puissance_administrative = ?";
             $stmtSelectKm = $dbhvar->prepare($sqlSelectKm);
             $stmtSelectKm->execute([$puissance]);
@@ -68,20 +73,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Calculer le montant remboursé en fonction de la distance
             if ($distance <= 5000) {
-                $remboursement = $distance * $donneesKm['distance_jusqu_5000_km'];
+                $remboursement = $distance * intval($donneesKm['distance_jusqu_5000_km']);
             } elseif ($distance <= 20000) {
-                $remboursement = $distance * $donneesKm['distance_5001_a_20000_km_coefficient'] + $donneesKm['distance_5001_a_20000_km_fixe'];
+                $remboursement = $distance * intval($donneesKm['distance_5001_a_20000_km_coefficient']) + intval($donneesKm['distance_5001_a_20000_km_fixe']);
             } else {
-                $remboursement = $distance * $donneesKm['distance_plus_20000_km'];
+                $remboursement = $distance * intval($donneesKm['distance_plus_20000_km']);
             }
             return $remboursement;
         }
 
         // Calculer et afficher le montant remboursé
-        $montantRembourse = calculerMontantRembourse($km, 'frais_kilometrique_gouvernement', $cv_fiscal, $dbh);
+        $montantRembourse = calculerMontantRembourse(intval($km), 'frais_kilometrique_gouvernement', $cv_fiscal, $dbh);
         $total_refund += $montantRembourse;
 
         // Calculer le montant à charge restant
+        $total_charge = 0;
         $total_charge = $total_user - $total_refund;
 
         // Exécuter la requête d'insertion pour "Fiche Forfait" avec le montant à charge restant
@@ -132,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- <span class="close" onclick="toggleModal()">&times;</span> -->
 
         <div id="formSelectorContainer">
-            
+
             <input type="button" value="Fiche Forfait" onclick="showForfaitForm()">
             <input type="button" value="Fiche Hors Forfait" onclick="showHorsForfaitForm()">
         </div>
@@ -151,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="repas">
                     <h2>Repas</h2>
-                 
+
                     <p id="repasInfo">Informations: Nous prenons en charge 10€/repas maximum</p>
                     <input type="text" name="priceMeal" placeholder="Prix Total" />
                     <input type="number" name="numberMeal" placeholder="Nombre de repas" />
@@ -222,8 +228,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         document.getElementById('forfaitFormContainer').style.display = 'block';
-            document.getElementById('horsForfaitFormContainer').style.display = 'none';
-            document.getElementById('transports-container').style.display = 'none'
+        document.getElementById('horsForfaitFormContainer').style.display = 'none';
+        document.getElementById('transports-container').style.display = 'none'
 
         updateFormValues('repas', 'repasInfo');
         updateFormValues('nuit', 'nuitInfo');
