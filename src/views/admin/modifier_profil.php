@@ -5,7 +5,11 @@ include('../../database.php');
 
 // Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['user'])) {
-    $userId = $_SESSION['user'];
+    // $userId = $_SESSION['user'];
+
+    // l'id doit être récupéré depuis l'url avec id=...
+
+    $userId = $_GET['id'];
 
     // Effectuez une requête pour récupérer les informations de l'utilisateur avec l'ID spécifié
     $requete = $dbh->prepare("SELECT * FROM visiteur WHERE id = ?");

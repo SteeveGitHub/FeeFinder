@@ -41,10 +41,10 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
 
             <tr>
                 <th>Date de début</th>
-                <th>Total Night Price</th>
-                <th>Night Quantity</th>
-                <th>Total Meal Price</th>
-                <th>Meal Quantity</th>
+                <th>Coût total nuit</th>
+                <th>Nb nuits</th>
+                <th>Coût total repas</th>
+                <th>Nb repas</th>
                 <th>KM</th>
                 <th>Transport Type</th>
                 <th>Valide Comptable</th>
@@ -63,14 +63,35 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td>" . $frais["meal_quantity"] . "</td>";
                 echo "<td>" . $frais["km"] . "</td>";
                 echo "<td>" . $frais["transport_type"] . "</td>";
-                echo $frais["valideComptable"] == 0 ? "<td>" . "En attente" . "</td>" : "<td>" . "Validé" . "</td>";
+                if($frais["valideComptable"] == 0){
+                    echo "<td>En attente</td>";
+                }else if($frais["valideComptable"] == 1){
+                    echo "<td>Validé</td>";
+                }else{
+                    echo "<td>Refusé</td>";
+                }
                 echo "<td>" . $frais["montantRestant"] . "€</td>";
-                echo "<td><input type='text' name='comment_frais_" . $frais["id"] . "' id='comment_frais_" . $frais["id"] . "'></td>";
+              
+$commentaireDB = $frais["comment"]; // Assurez-vous d'adapter cela à votre structure de base de données
+$ficheRefusee = $frais["valideComptable"] == 2;
+$ficheValidee = $frais["valideComptable"] == 1;
+
+if (($commentaireDB != "" && !$ficheValidee && !$ficheRefusee) || ($ficheValidee || $ficheRefusee)) {
+    echo "<td>$commentaireDB</td>";
+} else {
+    // Sinon, on affiche l'input
+    echo "<td><input type='text' name='comment_frais_" . $frais["id"] . "' id='comment_frais_" . $frais["id"] . "'></td>";
+}
+
+
+                // echo "<td><input type='text' name='comment_frais_" . $frais["id"] . "' id='comment_frais_" . $frais["id"] . "'></td>";
                 echo "<td>";
                 echo "<form action='' method='post'>";
                 echo "<input type='hidden' name='id_frais' value='" . $frais["id"] . "'>";
-                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 1)'>Valider</button>";
-                echo "<button type='button' onclick='updateValideComptable(\"frais\", {$frais["id"]}, 0)'>Refuser</button>";
+                if (!$frais["valideComptable"]) {
+                    echo '<button type="button" onclick="updateValideComptable(\'frais\', ' . $frais["id"] . ', 1)">Valider</button>';
+                    echo '<button type="button" onclick="updateValideComptable(\'frais\', ' . $frais["id"] . ', 2)">Refuser</button>';
+                }
                 echo "</form>";
                 echo "</td>";
                 echo "</tr>";
@@ -83,11 +104,11 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
         <table class="renderer comptable">
             <tr>
                 <th>Description</th>
-                <th>Total Price</th>
+                <th>Coût total</th>
                 <th>Justificatif</th>
                 <th>Valide Comptable</th>
                 <th>Montant Restant</th>
-                <th>Number Days</th>
+                <th>Nb jours</th>
                 <th>Pris en charge</th>
                 <th>Commentaire</th>
                 <th>Action</th>
@@ -99,16 +120,41 @@ $horsForfaitData = $requeteHorsForfait->fetchAll(PDO::FETCH_ASSOC);
                 echo "<td>" . $horsForfait["description"] . "</td>";
                 echo "<td>" . $horsForfait["total_price"] . "€</td>";
                 echo "<td>" . $horsForfait["justificatif"] . "</td>";
-                echo $horsForfait["valideComptable"] == 0 ? "<td>" . "En attente" . "</td>" : "<td>" . "Validé" . "</td>";
+                if($horsForfait["valideComptable"] == 0){
+                    echo "<td>En attente</td>";
+                }else if($horsForfait["valideComptable"] == 1){
+                    echo "<td>Validé</td>";
+                }else{
+                    echo "<td>Refusé</td>";
+                }
+                // echo $horsForfait["valideComptable"] == 0 ? "<td>" . "En attente" . "</td>" : "<td>" . "Validé" . "</td>";
                 echo "<td>" . $horsForfait["montantRestant"] . "€</td>";
                 echo "<td>" . $horsForfait["number_days"] . "</td>";
-                echo "<td><input type='number' name='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "' id='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "'></td>";
-                echo "<td><input type='text' name='comment_hors_frais_" . $horsForfait["id"] . "' id='comment_hors_frais_" . $horsForfait["id"] . "'></td>";
+                if($horsForfait["pris_en_charge"] != ""){
+                echo "<td>" . $horsForfait["pris_en_charge"] . "€</td>";
+                }else{
+                    echo "<td><input type='number' name='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "' id='pris_en_charge_hors_forfait_" . $horsForfait["id"] . "'></td>";
+                }
+                $commentaireDB = $horsForfait["comment"]; // Assurez-vous d'adapter cela à votre structure de base de données
+                $ficheRefusee = $horsForfait["valideComptable"] == 2;
+                $ficheValidee = $horsForfait["valideComptable"] == 1;
+
+                if (($commentaireDB != "" && !$ficheValidee && !$ficheRefusee) || ($ficheValidee || $ficheRefusee)) {
+                    echo "<td>$commentaireDB</td>";
+                } else {
+                    // Sinon, on affiche l'input
+                    echo "<td><input type='text' name='comment_hors_frais_" . $horsForfait["id"] . "' id='comment_hors_frais_" . $horsForfait["id"] . "'></td>";
+                }
+                // echo "<td><input type='text' name='comment_hors_frais_" . $horsForfait["id"] . "' id='comment_hors_frais_" . $horsForfait["id"] . "'></td>";
                 echo "<td>";
                 echo "<form action='' method='post'>";
                 echo "<input type='hidden' name='id_hors_forfait' value='" . $horsForfait["id"] . "'>";
+                if(!$horsForfait["valideComptable"]){
+
                 echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 1)'>Valider</button>";
-                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 0)'>Refuser</button>";
+                echo "<button type='button' onclick='updateValideComptable(\"hors_forfait\", {$horsForfait["id"]}, 2)'>Refuser</button>";
+            }
+                
                 echo "</form>";
                 echo "</td>";
                 echo "</tr>";
