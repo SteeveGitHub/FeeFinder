@@ -11,6 +11,9 @@
     align-items: center;
     border: 1px solid #F1F1F1;
     padding: 2rem;
+    background-color: #333;
+    border-radius: 2rem;
+    
 }
 
 .update-profile-view h1{
