@@ -132,6 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- <span class="close" onclick="toggleModal()">&times;</span> -->
 
         <div id="formSelectorContainer">
+            
             <input type="button" value="Fiche Forfait" onclick="showForfaitForm()">
             <input type="button" value="Fiche Hors Forfait" onclick="showHorsForfaitForm()">
         </div>
@@ -150,6 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="repas">
                     <h2>Repas</h2>
+                 
                     <p id="repasInfo">Informations: Nous prenons en charge 10€/repas maximum</p>
                     <input type="text" name="priceMeal" placeholder="Prix Total" />
                     <input type="number" name="numberMeal" placeholder="Nombre de repas" />
@@ -198,7 +200,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
-    <!-- </div> -->
 
 
     <script>
