@@ -6,7 +6,7 @@ include('../../database.php');
 
 if (isset($_SESSION['user'])) {
     $userId = $_SESSION['user'];
-
+    
     // Effectuez une requête pour récupérer les informations de l'utilisateur avec l'ID spécifié
     $requete = $dbh->prepare("SELECT * FROM visiteur WHERE id = ?");
     $result = $requete->execute([$userId]);
