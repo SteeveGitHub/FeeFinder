@@ -73,11 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Calculer le montant remboursé en fonction de la distance
             if ($distance <= 5000) {
-                $remboursement = $distance * intval($donneesKm['distance_jusqu_5000_km']);
+                $remboursement = $distance * floatval($donneesKm['distance_jusqu_5000_km']);
             } elseif ($distance <= 20000) {
-                $remboursement = $distance * intval($donneesKm['distance_5001_a_20000_km_coefficient']) + intval($donneesKm['distance_5001_a_20000_km_fixe']);
+                $remboursement = $distance * floatval($donneesKm['distance_5001_a_20000_km_coefficient']) + intval($donneesKm['distance_5001_a_20000_km_fixe']);
             } else {
-                $remboursement = $distance * intval($donneesKm['distance_plus_20000_km']);
+                $remboursement = $distance * floatval($donneesKm['distance_plus_20000_km']);
             }
             return $remboursement;
         }
