@@ -1,25 +1,32 @@
 <?php
 session_start();
+include '../../database.php';
 
 if (isset($_SESSION['status'])) {
-    include '../../database.php';
-
-    // Récupérer les fiches de frais du commercial depuis la base de données
     $commercialId = $_SESSION['user'];
+    $fichesFrais = [];
+    $fichesHorsForfait = [];
 
-    // Utilisez une requête préparée pour éviter les injections SQL
     $queryFrais = $dbh->prepare("SELECT * FROM frais WHERE user_id = ?");
     $queryFrais->execute([$commercialId]);
-
-    // Récupérer les résultats de la table 'frais'
     $fichesFrais = $queryFrais->fetchAll(PDO::FETCH_ASSOC);
 
-    // Récupérer les fiches hors forfait du commercial depuis la base de données
     $queryHorsForfait = $dbh->prepare("SELECT * FROM hors_forfait WHERE user_id = ?");
     $queryHorsForfait->execute([$commercialId]);
-
-    // Récupérer les résultats de la table 'hors_forfait'
     $fichesHorsForfait = $queryHorsForfait->fetchAll(PDO::FETCH_ASSOC);
+
+    if (isset($_GET['mois']) && $_GET['mois'] != "00") {
+        $visiteurID = $_SESSION['user'];
+        $moisSelectionne = $_GET['mois'];
+
+        $queryFrais = $dbh->prepare("SELECT * FROM frais WHERE user_id = ? AND MONTH(date_debut) = ?");
+        $queryFrais->execute([$visiteurID, $moisSelectionne]);
+        $fichesFrais = $queryFrais->fetchAll(PDO::FETCH_ASSOC);
+
+        $queryHorsForfait = $dbh->prepare("SELECT * FROM hors_forfait WHERE user_id = ? AND MONTH(created_at) = ?");
+        $queryHorsForfait->execute([$visiteurID, $moisSelectionne]);
+        $fichesHorsForfait = $queryHorsForfait->fetchAll(PDO::FETCH_ASSOC);
+    }
 ?>
 
     <!DOCTYPE html>
@@ -32,11 +39,28 @@ if (isset($_SESSION['status'])) {
     </head>
 
     <body>
-        <?php
-        include '../navbar/navbarView.php';
-        ?>
+        <?php include '../navbar/navbarView.php'; ?>
         <div class="consulter-frais-view">
             <h1>Liste des Fiches de Frais</h1>
+            <form method="get">
+                <label for="mois">Sélectionner un mois :</label>
+                <select name="mois" id="mois">
+                    <option value="00">-- Choisir un mois --</option>
+                    <option value="01">Janvier</option>
+                    <option value="02">Février</option>
+                    <option value="03">Mars</option>
+                    <option value="04">Avril</option>
+                    <option value="05">Mai</option>
+                    <option value="06">Juin</option>
+                    <option value="07">Juillet</option>
+                    <option value="08">Août</option>
+                    <option value="09">Septembre</option>
+                    <option value="10">Octobre</option>
+                    <option value="11">Novembre</option>
+                    <option value="12">Décembre</option>
+                </select>
+                <input type="submit" value="Filtrer">
+            </form>
             <table>
                 <thead>
                     <tr>
@@ -54,7 +78,9 @@ if (isset($_SESSION['status'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($fichesFrais as $fiche) : ?>
+                    <?php
+                    $forfait_fees = 0;
+                    foreach ($fichesFrais as $fiche) : $forfait_fees += $fiche['montantRestant'] ?>
                         <tr>
                             <td><?php echo $fiche['date_debut']; ?></td>
                             <td><?php echo $fiche['total_night_price']; ?></td>
@@ -73,6 +99,8 @@ if (isset($_SESSION['status'])) {
                             ?>
                         </tr>
                     <?php endforeach; ?>
+                    <?php if ($forfait_fees <= 0)  echo "<h2 class='fees'>Aucun frais à payer</h2>";
+                    else echo "<h2 class='fees'>Le total forfait à payer est de: " . $forfait_fees . "€</h2>" ?>
                 </tbody>
             </table>
             <h2>Fiches Hors Forfait en Cours</h2>
@@ -91,7 +119,9 @@ if (isset($_SESSION['status'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($fichesHorsForfait as $horsForfait) : ?>
+                    <?php
+                    $hors_forfait_fees = 0;
+                    foreach ($fichesHorsForfait as $horsForfait) : $hors_forfait_fees += $horsForfait['total_price']; ?>
                         <tr>
                             <td><?php echo $horsForfait['description']; ?></td>
                             <td><?php echo $horsForfait['total_price']; ?></td>
@@ -107,12 +137,24 @@ if (isset($_SESSION['status'])) {
                             ?>
                         </tr>
                     <?php endforeach; ?>
+                    <?php if ($hors_forfait_fees <= 0)  echo "<h2 class='fees'>Aucun hors forfait à payer</h2>";
+                    else echo "<h2 class='fees'>Le total hors forfait à payer est de: " . $hors_forfait_fees . "€</h2>" ?>
                 </tbody>
             </table>
         </div>
+        <?php
+        if (($forfait_fees + $hors_forfait_fees) <= 0) {
+            echo "<h2 class='fees'>Aucun frais à payer</h2>";
+        } else {
+            $total_fees = $forfait_fees + $hors_forfait_fees;
+            echo "<h2 class='allfeestitle'>Le montant total à payer (forfait + hors forfait) est de: $total_fees €</h2>";
+        }
+        ?>
+
     </body>
 
     </html>
+
 <?php
 } else {
     header('Location: ../verifUserSessionCtrl.php');

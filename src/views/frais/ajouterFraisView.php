@@ -99,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $targetDir = "../../justificatifs/";
     } elseif (isset($_POST['horsForfaitSubmit'])) {
         // Traitement du formulaire "Fiche Hors Forfait"
+        $date_debut = date('Y-m-d', strtotime($_POST["date"]));
         $user_id = $_SESSION['user'];
         $number_days = $_POST["number_days"];
         $description = $_POST["description-area"];
@@ -106,9 +107,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $justificatif = isset($_FILES["justificatif"]["name"]) ? $_FILES["justificatif"]["name"] : "";
 
         // Exécuter la requête d'insertion pour "Fiche Hors Forfait"
-        $sql = "INSERT INTO hors_forfait (user_id, description, total_price, justificatif, number_days) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO hors_forfait (user_id, description, total_price, justificatif, number_days, created_at) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $dbh->prepare($sql);
-        $stmt->execute([$user_id, $description, $total_price, $justificatif, $number_days]);
+        $stmt->execute([$user_id, $description, $total_price, $justificatif, $number_days, $date_debut]);
 
         // Téléchargement du justificatif pour "Fiche Hors Forfait"
         $targetDir = "../../justificatifs/";
@@ -194,6 +195,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2>Fiche Hors Forfait</h2>
 
             <form id="horsForfaitForm" method="POST" action="ajouterFraisView.php">
+                <label for="date">Date de début:</label>
+                <input type="date" id="date" name="date" required><br><br>
                 <label for="description">Votre hors forfait:</label>
                 <textarea rows="5" cols="20" name="description-area"></textarea>
                 <label for="totalPrice">Prix total:</label>
