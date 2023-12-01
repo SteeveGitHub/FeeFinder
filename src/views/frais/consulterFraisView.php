@@ -46,7 +46,7 @@ if (isset($_SESSION['status'])) {
         <div class="consulter-frais-view">
             <h1>Liste des Fiches de Frais</h1>
             <form method="get">
-                <label for="mois">Sélectionner un mois :</label>
+                <!-- <label for="mois">Sélectionner un mois :</label> -->
                 <select name="mois" id="mois">
                     <option value="00">-- Choisir un mois --</option>
                     <option value="01">Janvier</option>
@@ -98,6 +98,8 @@ if (isset($_SESSION['status'])) {
                             <?php
                             if (!$fiche['valideComptable']) {
                                 echo '<td><a href="detailsFicheFrais.php?id=' . $fiche['id'] . '&table=frais">Modifier</a></td>';
+                            }else{
+                                echo '<td>Traité</td>';
                             }
                             ?>
                         </tr>
@@ -148,6 +150,8 @@ if (isset($_SESSION['status'])) {
                             <?php
                             if (!$horsForfait['valideComptable']) {
                                 echo '<td><a href="detailsFicheFrais.php?id=' . $horsForfait['id'] . '&table=hors_forfait">Modifier</a></td>';
+                            }else{
+                                echo '<td>Traité</td>';
                             }
                             ?>
                         </tr>

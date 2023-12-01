@@ -22,7 +22,6 @@
                 <input type="password" name="password" class="password" id="password" placeholder="...mot de passe" />
                 <button type="submit" class="button">connexion</button>
             </form>
-            <div><button class="button"><a href="../inscription/registerView.php">S'inscrire</a></button></div>
         </section>
     </div>
     <script>
