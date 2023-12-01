@@ -20,6 +20,7 @@ if (isset($_SESSION['status'])) {
         $moisSelectionne = $_GET['mois'];
 
         $queryFrais = $dbh->prepare("SELECT * FROM frais WHERE user_id = ? AND MONTH(date_debut) = ?");
+        
         $queryFrais->execute([$visiteurID, $moisSelectionne]);
         $fichesFrais = $queryFrais->fetchAll(PDO::FETCH_ASSOC);
 
@@ -36,6 +37,8 @@ if (isset($_SESSION['status'])) {
         <meta charset="UTF-8">
         <title>Liste des Fiches de Frais</title>
         <link rel="stylesheet" href="../../styles/index.css">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
 
     <body>
@@ -103,6 +106,18 @@ if (isset($_SESSION['status'])) {
                     else echo "<h2 class='fees'>Le total forfait à payer est de: " . $forfait_fees . "€</h2>" ?>
                 </tbody>
             </table>
+            <?php
+            if(count($fichesFrais) > 0){
+                echo "<div class='chart-section'>";
+                echo "<h2>Parts des dépenses pour les transports et les repas</h2>";
+                echo "<canvas id='transportRepasChart'></canvas>";
+                echo "</div>";
+            
+            }else{
+                echo "<h2>PAS DE DONNEES DISPONIBLES POUR LE GRAPHE</h2>";
+            }
+            ?>
+                            
             <h2>Fiches Hors Forfait en Cours</h2>
             <table>
                 <thead>
@@ -150,6 +165,48 @@ if (isset($_SESSION['status'])) {
             echo "<h2 class='allfeestitle'>Le montant total à payer (forfait + hors forfait) est de: $total_fees €</h2>";
         }
         ?>
+
+<?php
+    if (isset($_GET['mois']) && $_GET['mois'] != "00") {
+        $moisSelectionne = $_GET['mois'];
+        $queryTransportRepas = $dbh->prepare("SELECT SUM(total_night_price) AS totalHebergement, SUM(total_meal_price) AS totalRepas FROM frais WHERE user_id = ? AND MONTH(date_debut) = ?");
+        $queryTransportRepas->execute([$commercialId, $moisSelectionne]);
+    } else {
+        $queryTransportRepas = $dbh->prepare("SELECT SUM(total_night_price) AS totalHebergement, SUM(total_meal_price) AS totalRepas FROM frais WHERE user_id = ?");
+        $queryTransportRepas->execute([$commercialId]);
+    }
+    $transportRepasData = $queryTransportRepas->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<script>
+    // Vérifier si le graphique a déjà été initialisé
+    if (!document.getElementById('transportRepasChart').hasAttribute('data-chart-initialized')) {
+        console.log('test1')
+        // Si ce n'est pas déjà initialisé, procéder à l'initialisation du graphique
+        const transportRepasCtx = document.getElementById('transportRepasChart').getContext('2d');
+
+        new Chart(transportRepasCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Hébergement', 'Repas'],
+                datasets: [{
+                    data: [<?= $transportRepasData[0]['totalHebergement'] ?>, <?= $transportRepasData[0]['totalRepas'] ?>],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(53, 162, 235, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Marquer le graphique comme étant initialisé
+        document.getElementById('transportRepasChart').setAttribute('data-chart-initialized', 'true');
+    }
+</script>
+
 
     </body>
 

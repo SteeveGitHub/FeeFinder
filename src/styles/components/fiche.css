@@ -40,7 +40,8 @@
 
 .consulter-frais-view {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
   width: 50rem;
   min-height: 50rem;
   justify-content: space-evenly;
@@ -50,6 +51,7 @@
 .consulter-frais-view h1,
 .consulter-frais-view h2 {
   font-size: 2rem;
+  width: 100%;
 }
 
 .consulter-frais-view table {
@@ -80,7 +82,8 @@
 
 @media screen and (min-width: 1000px) {
   .consulter-frais-view {
-    margin: 0 auto 0 25rem;
+    margin: 0 0 0 20rem;
+    width: 75%;
   }
 }
 
