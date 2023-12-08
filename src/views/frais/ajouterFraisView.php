@@ -52,9 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Calcul du montant total à charge restant
         $total_refund = intval($refund_night) + intval($refund_meal);
-        $total_refund = intval($total_refund);
+        // $total_refund = intval($total_refund);
 
         if ($total_user < $total_refund) {
+            // si ce que paie l'utilisteur est inférieur au montant remboursé,
+            // on rembourse ce que l'utilisateur a payé
             $total_refund = $total_user;
         }
 
@@ -64,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cv_fiscal = $stmtSelectCV->fetchColumn();
 
         function calculerMontantRembourse($distance, $table, $puissance, $dbhvar)
+        //calcul du remboursement en fonction des frais kilométriques
         {
             $remboursement = 0;
             $sqlSelectKm = "SELECT distance_jusqu_5000_km, distance_5001_a_20000_km_coefficient, distance_5001_a_20000_km_fixe, distance_plus_20000_km FROM frais_kilometrique_gouvernement WHERE puissance_administrative = ?";
@@ -85,9 +88,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Calculer et afficher le montant remboursé
         $montantRembourse = calculerMontantRembourse(intval($km), 'frais_kilometrique_gouvernement', $cv_fiscal, $dbh);
         $total_refund += $montantRembourse;
+        // ajout au remboursement du montant des frais kilométriques
 
         // Calculer le montant à charge restant
         $total_charge = 0;
+        // ce que l'utilisateur va payer au final ou non
         $total_charge = $total_user - $total_refund;
 
         // Exécuter la requête d'insertion pour "Fiche Forfait" avec le montant à charge restant
