@@ -1,18 +1,19 @@
 <?php
 session_start();
+
 if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST["phone"]) && isset($_POST['adress']) && isset($_POST['postal']) && isset($_POST['city']) && isset($_POST['password'])) {
     try {
         include('../../database.php');
-        $login = htmlspecialchars($_POST['login']);
-        $name = htmlspecialchars($_POST['name']);
-        $prenom = htmlspecialchars($_POST['prenom']);
-        $email = htmlspecialchars($_POST['email']);
-        $phone = htmlspecialchars($_POST['phone']);
-        $adress = htmlspecialchars($_POST['adress']);
-        $postal = htmlspecialchars($_POST['postal']);
-        $city = htmlspecialchars($_POST['city']);
-        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $status = 1;
+        $login = strip_tags($_POST['login']);
+        $name = strip_tags($_POST['name']);
+        $prenom = strip_tags($_POST['prenom']);
+        $email = strip_tags($_POST['email']);
+        $phone = strip_tags($_POST['phone']);
+        $adress = strip_tags($_POST['adress']);
+        $postal = strip_tags($_POST['postal']);
+        $city = strip_tags($_POST['city']);
+        $passwordHash = password_hash(strip_tags($_POST['password']), PASSWORD_DEFAULT);
+        $status = 1;        
 
         $checkPasswordQuery = $dbh->prepare("SELECT COUNT(1) FROM visiteur WHERE mdp = ?");
         $checkPasswordQuery->execute([$passwordHash]);
@@ -20,7 +21,7 @@ if (isset($_POST['login']) && isset($_POST['name']) && isset($_POST['prenom']) &
         if ($resultPassword[0] != 0) {
             echo "<script>alert('Mot de passse déjà utilsé');
                 window.location.href='../../views/inscription/registerView.php';
-            </script>";
+            </sc>";
         }
 
         $checkLoginQuery = "SELECT COUNT(1) FROM visiteur WHERE login = ?";

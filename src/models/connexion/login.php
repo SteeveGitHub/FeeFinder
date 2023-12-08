@@ -12,16 +12,17 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $row = $requete->fetch();
 
     if ($row && password_verify($password, $row["mdp"])) {
+        if($row["status"] === 4){
+            header('Location: ../../views/connexion/loginView.php?error=1');
+            exit();
+        }
+
         $idUser = $row["id"];
         $status = $row["status"];
         $_SESSION['user'] = $idUser;
         $_SESSION['status'] = $status;
         header('Location: ../../index.php');
-
     } else {
-        header('Location: ../../views/connexion/loginView.php');
+        header('Location: ../../views/connexion/loginView.php?error=2');
     }
 }
-
-?>
-

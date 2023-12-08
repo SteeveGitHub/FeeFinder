@@ -1,10 +1,10 @@
 <?php
 session_start();
-include (__DIR__ . '../../../utils/getTemplate.php');
 
 if (isset($_SESSION['status'])) {
-    $template = getTemplate(__DIR__ . '../../../views/accueil/contactsView.php');
-    echo $template;
+    header('Location: ../../views/accueil/contactsView.php');
+
 } else {
     header('Location: ../verifUserSessionCtrl.php');
-}
+} 
+?>

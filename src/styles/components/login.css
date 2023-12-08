@@ -1,4 +1,5 @@
 .login-container{
+    background-color: #FFF;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,6 +46,7 @@
 .login-container form .button{
     height: 3rem;
     margin-top: 2rem;
+    width: 10rem;
 }
 .login-container form label{
     font-weight: 700;
@@ -56,6 +58,7 @@
 @media screen and (min-width: 1000px){
     .login-container{
         width: 40rem;
+        margin-top: 10rem;
     }
     .login-container div .button{
      margin-bottom: 1.5rem;
